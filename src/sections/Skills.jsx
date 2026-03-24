@@ -23,7 +23,7 @@ function SkillBar({ name, level, note }) {
           <div
             key={n}
             className={`h-2.5 flex-1 rounded-full transition-colors ${
-              n <= level ? 'bg-violet-500' : 'bg-slate-700/60'
+              n <= level ? 'bg-cyan-500' : 'bg-slate-700/60'
             }`}
           />
         ))}
@@ -36,7 +36,7 @@ function SkillBar({ name, level, note }) {
 export default function Skills() {
   return (
     <section id="skills" className="section">
-      <p className="text-violet-400 text-xs font-mono tracking-widest uppercase mb-2">Skills</p>
+      <p className="text-cyan-400 text-xs font-mono tracking-widest uppercase mb-2">Skills</p>
       <h2 className="section-title">スキル</h2>
       <p className="section-sub">主力〜入門まで習熟度を可視化</p>
 

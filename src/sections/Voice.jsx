@@ -15,7 +15,7 @@ const categoryColors = {
 export default function Voice() {
   return (
     <section id="voice" className="section">
-      <p className="text-violet-400 text-xs font-mono tracking-widest uppercase mb-2">Voice</p>
+      <p className="text-cyan-400 text-xs font-mono tracking-widest uppercase mb-2">Voice</p>
       <h2 className="section-title">声優・ナレーター活動</h2>
       <p className="section-sub">HAL入学以前からプロとして活動中</p>
 
@@ -41,7 +41,7 @@ export default function Voice() {
             href={profile.voicePortfolio}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-6 text-violet-400 hover:text-violet-300 text-sm transition-colors font-medium"
+            className="inline-flex items-center gap-2 mt-6 text-cyan-400 hover:text-cyan-300 text-sm transition-colors font-medium"
           >
             声優ポートフォリオサイトを見る →
           </a>
@@ -51,11 +51,11 @@ export default function Voice() {
         <div className="space-y-4">
           {equipment.map((e) => (
             <div key={e.label} className="card">
-              <h4 className="text-violet-300 text-xs font-mono uppercase tracking-wider mb-3">{e.label}</h4>
+              <h4 className="text-cyan-300 text-xs font-mono uppercase tracking-wider mb-3">{e.label}</h4>
               <ul className="space-y-2">
                 {e.items.map((item) => (
                   <li key={item} className="text-slate-200 text-sm flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-violet-400 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -64,7 +64,7 @@ export default function Voice() {
           ))}
 
           <div className="card">
-            <h4 className="text-violet-300 text-xs font-mono uppercase tracking-wider mb-3">自宅スタジオ</h4>
+            <h4 className="text-cyan-300 text-xs font-mono uppercase tracking-wider mb-3">自宅スタジオ</h4>
             <p className="text-slate-300 text-sm leading-relaxed">
               電動昇降デスクを中心としたPCデスク環境をDIYで構築。
               吸音パネルの配置・機材レイアウトを繰り返し見直し、録音品質と作業効率を両立。

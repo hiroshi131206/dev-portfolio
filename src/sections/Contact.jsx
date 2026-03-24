@@ -24,7 +24,7 @@ const links = [
 export default function Contact() {
   return (
     <section id="contact" className="section">
-      <p className="text-violet-400 text-xs font-mono tracking-widest uppercase mb-2">Contact</p>
+      <p className="text-cyan-400 text-xs font-mono tracking-widest uppercase mb-2">Contact</p>
       <h2 className="section-title">連絡先</h2>
       <p className="section-sub">お気軽にご連絡ください</p>
 
@@ -35,14 +35,14 @@ export default function Contact() {
             href={l.href}
             target={l.href.startsWith('http') ? '_blank' : undefined}
             rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            className="flex items-center gap-5 card hover:border-violet-500 group"
+            className="flex items-center gap-5 card hover:border-cyan-500 group"
           >
             <span className="text-2xl w-10 text-center flex-shrink-0">{l.icon}</span>
             <div className="flex-1 min-w-0">
-              <p className="text-violet-400 text-xs font-mono uppercase tracking-wider mb-0.5">{l.label}</p>
+              <p className="text-cyan-400 text-xs font-mono uppercase tracking-wider mb-0.5">{l.label}</p>
               <p className="text-slate-100 text-sm font-medium truncate">{l.value}</p>
             </div>
-            <span className="text-slate-500 group-hover:text-violet-400 transition-colors text-lg flex-shrink-0">→</span>
+            <span className="text-slate-500 group-hover:text-cyan-400 transition-colors text-lg flex-shrink-0">→</span>
           </a>
         ))}
       </div>

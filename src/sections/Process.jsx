@@ -29,15 +29,15 @@ const steps = [
 export default function Process() {
   return (
     <section id="process" className="section">
-      <p className="text-violet-400 text-xs font-mono tracking-widest uppercase mb-2">Process</p>
+      <p className="text-cyan-400 text-xs font-mono tracking-widest uppercase mb-2">Process</p>
       <h2 className="section-title">開発プロセス</h2>
       <p className="section-sub">AI Agent 導入による開発効率化</p>
 
       <div className="max-w-2xl mx-auto space-y-4">
         {steps.map((s) => (
           <div key={s.step} className="card flex gap-5 items-start">
-            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-violet-900/50 border border-violet-700 flex items-center justify-center">
-              <span className="text-violet-300 font-mono text-sm font-bold">{s.step}</span>
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-900/40 border border-cyan-700 flex items-center justify-center">
+              <span className="text-cyan-300 font-mono text-sm font-bold">{s.step}</span>
             </div>
             <div>
               <h3 className="text-white font-semibold mb-1.5">{s.title}</h3>
@@ -47,9 +47,8 @@ export default function Process() {
         ))}
       </div>
 
-      {/* ハイライト */}
-      <div className="mt-12 max-w-2xl mx-auto bg-violet-900/20 border border-violet-700/60 rounded-2xl p-8 text-center">
-        <p className="text-violet-200 text-lg font-semibold mb-2">
+      <div className="mt-12 max-w-2xl mx-auto bg-cyan-900/15 border border-cyan-700/50 rounded-2xl p-8 text-center">
+        <p className="text-cyan-200 text-lg font-semibold mb-2">
           「AIを使いこなす側」のエンジニアとして
         </p>
         <p className="text-slate-300 text-sm max-w-lg mx-auto leading-relaxed">

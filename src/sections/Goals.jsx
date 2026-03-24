@@ -28,7 +28,7 @@ const goals = [
 export default function Goals() {
   return (
     <section id="goals" className="section">
-      <p className="text-violet-400 text-xs font-mono tracking-widest uppercase mb-2">Goals</p>
+      <p className="text-cyan-400 text-xs font-mono tracking-widest uppercase mb-2">Goals</p>
       <h2 className="section-title">これからやりたいこと</h2>
       <p className="section-sub">技術領域を広げながら、制作現場を支えるエンジニアへ</p>
 
