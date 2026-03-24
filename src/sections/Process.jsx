@@ -120,13 +120,13 @@ export default function Process() {
             {/* テキスト */}
             <div className="space-y-4">
               <p className="text-slate-300 text-sm leading-relaxed">
-                依頼者は要件を知らない。現場担当者も全体を把握していない。「正しく聞き取る」という前提が、そもそも現実に即していない。
+                依頼者は要件を知りません。現場担当者も全体を把握していません。「正しく聞き取る」という前提が、そもそも現実に即していません。
               </p>
               <p className="text-slate-300 text-sm leading-relaxed">
-                だから私はヒアリングを出発点にしない。複数店舗のシフト運用を自ら体験し、業務の流れを観察し、「今やっていることの電子化」ではなく<span className="text-cyan-300 font-semibold">「本来あるべき姿」を自分で構築する</span>。これが萩本順三氏の言う「要求開発」の本質であり、私の開発の出発点だ。
+                だから私はヒアリングを出発点にしません。複数店舗のシフト運用を自ら体験し、業務の流れを観察し、「今やっていることの電子化」ではなく<span className="text-cyan-300 font-semibold">「本来あるべき姿」を自分で構築します</span>。これが萩本順三氏の言う「要求開発」の本質であり、私の開発の出発点です。
               </p>
               <div className="border-l-2 border-cyan-900 pl-4">
-                <p className="text-cyan-300/60 text-xs leading-relaxed">現状の非効率をシステムで固定化しない。「追加仕様が無限に発生する」罠を避けるために。</p>
+                <p className="text-cyan-300/60 text-xs leading-relaxed">現状の非効率をシステムで固定化しません。「追加仕様が無限に発生する」罠を避けるために。</p>
               </div>
             </div>
           </div>
@@ -158,13 +158,13 @@ export default function Process() {
             {/* テキスト */}
             <div className="space-y-4">
               <p className="text-slate-300 text-sm leading-relaxed">
-                遷移図や画面モックでは依頼者の意見が出ない。実務に近いデータを使った<span className="text-emerald-300 font-semibold">動作するプロトタイプを触ってもらって初めて「スイッチが入り」</span>、本当の要件定義が始まる。
+                遷移図や画面モックでは依頼者の意見が出ません。実務に近いデータを使った<span className="text-emerald-300 font-semibold">動作するプロトタイプを触ってもらって初めて「スイッチが入り」</span>、本当の要件定義が始まります。
               </p>
               <p className="text-slate-300 text-sm leading-relaxed">
-                AI を1つだけ使うのではなく、それぞれの得意領域で役割分担させることで、コンテキストを分散させてトークン消費を最適化しながら、プロトタイプの完成速度を大幅に上げている。
+                AI を1つだけ使うのではなく、それぞれの得意領域で役割分担させることで、コンテキストを分散させてトークン消費を最適化しながら、プロトタイプの完成速度を大幅に上げています。
               </p>
               <div className="border-l-2 border-emerald-900 pl-4">
-                <p className="text-emerald-300/60 text-xs leading-relaxed">AI が速くなるほど、間違ったものを速く完成させるリスクも増す。正しい「スイッチの入れ方」がより重要になる。</p>
+                <p className="text-emerald-300/60 text-xs leading-relaxed">AI が速くなるほど、間違ったものを速く完成させるリスクも増します。正しい「スイッチの入れ方」がより重要になります。</p>
               </div>
             </div>
           </div>
@@ -281,10 +281,10 @@ export default function Process() {
             {/* テキスト */}
             <div className="space-y-4">
               <p className="text-slate-300 text-sm leading-relaxed">
-                実際に店舗スタッフが触ったプロトタイプから「スイッチが入り」、本当の要件が浮かび上がる。そのフィードバックをもとに <code className="text-emerald-400 bg-[#071828] px-1.5 py-0.5 rounded text-xs">/autoresearch</code> ループが「修正 → 検証 → 採用 / 棄却」を自律的に繰り返す。
+                実際に店舗スタッフが触ったプロトタイプから「スイッチが入り」、本当の要件が浮かび上がります。そのフィードバックをもとに <code className="text-emerald-400 bg-[#071828] px-1.5 py-0.5 rounded text-xs">/autoresearch</code> ループが「修正 → 検証 → 採用 / 棄却」を自律的に繰り返します。
               </p>
               <p className="text-slate-300 text-sm leading-relaxed">
-                人間がすべきことは、改善の「目標」と「検証方法」を定義することだけ。変更・コミット・検証・リバートはエージェントが実行し、失敗も含めてすべてログに残る。
+                人間がすべきことは、改善の「目標」と「検証方法」を定義することだけです。変更・コミット・検証・リバートはエージェントが実行し、失敗も含めてすべてログに残ります。
               </p>
               <div className="border-l-2 border-emerald-900 pl-4">
                 <p className="text-emerald-300/60 text-xs leading-relaxed">実績: 品質チェック通過率 66.7% → 100%（5ラウンド自動実行）</p>
@@ -301,9 +301,9 @@ export default function Process() {
           AI が速くなるほど、「何を作るか」の判断が問われる
         </p>
         <p className="text-slate-300 text-sm leading-relaxed max-w-2xl">
-          AI はコーディング・テスト・ドキュメント整理といった定型作業を効率化する。しかしその分、間違った要件に基づいて間違ったものを速く完成させるリスクも同時に増す。
-          設定・エージェント・フックによる品質の構造化と、複数 AI の役割分担によるトークン最適化は、その速度を安全に使いこなすための基盤だ。
-          <span className="text-cyan-300 font-semibold"> AI が進化しても、要件を「開発する」判断は人間が担い続ける。</span>
+          AI はコーディング・テスト・ドキュメント整理といった定型作業を効率化します。しかしその分、間違った要件に基づいて間違ったものを速く完成させるリスクも同時に増します。
+          設定・エージェント・フックによる品質の構造化と、複数 AI の役割分担によるトークン最適化は、その速度を安全に使いこなすための基盤です。
+          <span className="text-cyan-300 font-semibold"> AI が進化しても、要件を「開発する」判断は人間が担い続けます。</span>
         </p>
       </div>
     </section>
