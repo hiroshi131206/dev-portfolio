@@ -12,10 +12,13 @@ const badgeStyles = {
 // ============================================================
 function MediaEmbed({ item, title }) {
   if (item.type === 'image') {
+    const src = item.url.startsWith('http')
+      ? item.url
+      : `${import.meta.env.BASE_URL}${item.url.replace(/^\//, '')}`
     return (
       <div className="w-full h-[420px] rounded-b-xl overflow-hidden bg-[#050f1c] border-x border-b border-[#1a4060] flex items-center justify-center">
         <img
-          src={item.url}
+          src={src}
           alt={item.label ?? title}
           className="w-full h-full object-contain"
         />
