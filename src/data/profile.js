@@ -17,15 +17,17 @@ export const works = [
     subtitle: '勤務管理システム',
     badge: '実運用中',
     badgeColor: 'green',
-    description: 'JR東海リテイリング・プラスの名古屋駅3店舗・在来線1店舗で現在も試験運用中の勤務管理システム。アルバイトの立場から現場課題を拾い上げ、要件定義から開発まで一貫して担当。',
+    description: 'JR東海リテイリング・プラスの名古屋駅3店舗・在来線1店舗で試験運用中の勤務管理システム。数理最適化エンジンによるシフト自動生成・4階層権限管理・PWA対応を実装。アルバイトの立場から要件定義〜本格開発まで一貫して担当した。',
     motivation: '複数店舗で勤務する中で、店長から「勤務調整が非効率で困っている」という相談を受けたことがきっかけ。アルバイトの立場でありながら支社管理部との交渉から着手した。',
     features: [
-      '店長・エリアマネージャー・現場スタッフへのヒアリングによる要件定義',
-      '複数業種・複数店舗の業務フローを横断した設計',
-      'AI（Claude Code）活用による開発工期短縮',
+      'OR-Tools / PuLP による数理最適化でシフトを自動生成（最大50,000名規模対応）',
+      'React 18 + TypeScript + Redux Toolkit によるSPA / PWA構成（オフライン対応）',
+      'Django REST Framework + PostgreSQL（Row Level Security）+ Celery + Redis',
+      'Docker + Nginx + Gunicorn によるコンテナ化、JWT認証で4階層権限管理',
+      'Chart.js でシフト・給与・コストをリアルタイム可視化',
     ],
     status: '名古屋駅3店舗・在来線1店舗で試験運用継続中',
-    tags: ['React', 'Claude Code', '要件定義', 'システム開発', 'AI活用'],
+    tags: ['React', 'TypeScript', 'Django', 'PostgreSQL', 'Redis', 'Docker', 'OR-Tools', 'PWA'],
     github: 'https://github.com/hiroshi131206/optima-shift-project',
     media: [
       {

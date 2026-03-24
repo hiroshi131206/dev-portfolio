@@ -127,7 +127,7 @@ export default function Works() {
         {works.map((work, i) => (
           <article
             key={work.id}
-            className="py-14 border-b border-[#1a4060]/50 first:border-t first:border-[#1a4060]/50"
+            className="py-20 border-b border-[#1a4060]/50 first:border-t first:border-[#1a4060]/50"
           >
             <div className="grid lg:grid-cols-[3fr_2fr] gap-12 items-start">
 
