@@ -23,10 +23,10 @@ export default function Voice() {
       <h2 className="section-title">その他の活動</h2>
       <p className="section-sub">タレント・ナレーター活動</p>
 
-      <div className="grid md:grid-cols-2 gap-10 items-start">
+      <div className="grid md:grid-cols-2 gap-10 items-stretch">
 
         {/* 左: 経歴 + 実績 */}
-        <div className="space-y-6">
+        <div className="flex flex-col">
           {/* 経歴 */}
           <div className="card p-6 space-y-3">
             <p className="text-cyan-400 text-xs font-mono uppercase tracking-wider mb-1">経歴</p>
@@ -34,9 +34,12 @@ export default function Voice() {
               高校在学中に配信サービス上でスカウトを受け、<span className="text-white font-semibold">NTC事務所</span>の研修生として所属。高校卒業と同時にタレントとしてデビュー。
             </p>
             <p className="text-slate-300 text-sm leading-relaxed">
-              東海圏を中心に、ラジオCMや企業VPなどナレーションを主軸に活動。医学部浪人期間中も活動を継続し、現在もHAL在学と並行してプロとして案件に対応している。
+              東海圏を中心に、ラジオCMや企業VPなどナレーションを主軸に活動。医学部浪人期間中も活動を継続し、現在もHAL在学と並行してプロとして案件に対応しています。
             </p>
           </div>
+
+          {/* スペーサー: 経歴と実績の間を押し広げる */}
+          <div className="flex-1 min-h-8" />
 
           {/* 実績 */}
           <div>
@@ -59,11 +62,11 @@ export default function Voice() {
         </div>
 
         {/* 右: ポートフォリオサイトプレビュー */}
-        <div className="space-y-3">
+        <div className="flex flex-col gap-3">
           <p className="text-slate-500 text-xs font-mono uppercase tracking-wider">声優ポートフォリオサイト</p>
-          <div className="rounded-xl overflow-hidden border border-[#1a4060] bg-[#050f1c]">
+          <div className="rounded-xl overflow-hidden border border-[#1a4060] bg-[#050f1c] flex flex-col flex-1">
             {/* アドレスバー風ヘッダー */}
-            <div className="flex items-center gap-2 px-4 py-2.5 bg-[#071828] border-b border-[#1a4060]">
+            <div className="flex items-center gap-2 px-4 py-2.5 bg-[#071828] border-b border-[#1a4060] flex-shrink-0">
               <div className="flex gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
@@ -74,7 +77,7 @@ export default function Voice() {
               </span>
             </div>
             {/* iframe */}
-            <div className="w-full h-[340px]">
+            <div className="flex-1 min-h-[280px]">
               <iframe
                 src={profile.voicePortfolio}
                 title="声優ポートフォリオサイト"
@@ -82,15 +85,18 @@ export default function Voice() {
                 loading="lazy"
               />
             </div>
+            {/* 別タブリンク — フレーム内下部 */}
+            <div className="px-4 py-2.5 bg-[#071828] border-t border-[#1a4060] flex-shrink-0">
+              <a
+                href={profile.voicePortfolio}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cyan-400 hover:text-cyan-300 text-xs transition-colors"
+              >
+                別タブで開く →
+              </a>
+            </div>
           </div>
-          <a
-            href={profile.voicePortfolio}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm transition-colors"
-          >
-            別タブで開く →
-          </a>
         </div>
 
       </div>
