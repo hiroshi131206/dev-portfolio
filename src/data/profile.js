@@ -27,10 +27,20 @@ export const works = [
     status: '名古屋駅3店舗・在来線1店舗で試験運用継続中',
     tags: ['React', 'Claude Code', '要件定義', 'システム開発', 'AI活用'],
     github: 'https://github.com/hiroshi131206/optima-shift-project',
-    // media: { type: 'youtube', url: 'https://www.youtube.com/embed/VIDEO_ID', caption: 'デモ動画' }
-    // media: { type: 'pdf', url: '/docs/optima-shift.pdf', caption: '要件定義書' }
-    // media: { type: 'image', url: '/images/optima-shift.png', caption: 'スクリーンショット' }
-    media: null,
+    media: [
+      {
+        type: 'drive',
+        url: 'https://drive.google.com/file/d/1Kv0wbKJXB9ETbVFG-8pYTxjl8ofDSP4b/preview',
+        label: 'プレゼン資料',
+        icon: 'pdf',
+      },
+      {
+        type: 'drive',
+        url: 'https://drive.google.com/file/d/1CyCi2QN4zDZtsyV5zmoRYOq970gzd35t/preview',
+        label: 'デモ動画',
+        icon: 'video',
+      },
+    ],
   },
   {
     id: 'script-analyzer',

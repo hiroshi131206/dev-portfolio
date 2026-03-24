@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { works } from '../data/profile'
 
 const badgeStyles = {
@@ -7,71 +8,75 @@ const badgeStyles = {
 }
 
 // ============================================================
-// メディアプレビュー（右カラム）
+// 1件分のiframeビューア
+// ============================================================
+function DriveEmbed({ item, title }) {
+  return (
+    <div className={`w-full rounded-b-xl overflow-hidden bg-[#050f1c] border-x border-b border-[#1a4060] ${
+      item.icon === 'video' ? 'aspect-video' : 'h-[420px]'
+    }`}>
+      <iframe
+        src={item.url}
+        title={item.label ?? title}
+        className="w-full h-full"
+        allow="autoplay"
+        allowFullScreen
+      />
+    </div>
+  )
+}
+
+// ============================================================
+// メディアパネル（タブ切り替え対応）
 // ============================================================
 function MediaPanel({ work }) {
+  const [activeTab, setActiveTab] = useState(0)
   const { media, status, github } = work
 
-  // YouTube埋め込み
-  if (media?.type === 'youtube') {
+  // 配列メディア（タブ切り替え）
+  if (Array.isArray(media) && media.length > 0) {
+    const current = media[activeTab]
     return (
-      <div className="flex flex-col gap-3">
-        <div className="w-full aspect-video rounded-xl overflow-hidden bg-[#050f1c] border border-[#1a4060]">
-          <iframe
-            src={media.url}
-            title={media.caption ?? work.title}
-            className="w-full h-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+      <div>
+        {/* タブ */}
+        <div className="flex border border-[#1a4060] rounded-t-xl overflow-hidden">
+          {media.map((m, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveTab(i)}
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium transition-colors ${
+                activeTab === i
+                  ? 'bg-cyan-900/40 text-cyan-300 border-b-2 border-cyan-500'
+                  : 'bg-[#050f1c] text-slate-500 hover:text-slate-300'
+              }`}
+            >
+              {m.icon === 'video' ? (
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              ) : (
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              )}
+              {m.label}
+            </button>
+          ))}
         </div>
-        {media.caption && (
-          <p className="text-slate-500 text-xs text-center">{media.caption}</p>
-        )}
-      </div>
-    )
-  }
 
-  // PDF埋め込み
-  if (media?.type === 'pdf') {
-    return (
-      <div className="flex flex-col gap-3">
-        <div className="w-full h-[420px] rounded-xl overflow-hidden bg-[#050f1c] border border-[#1a4060]">
-          <iframe
-            src={media.url}
-            title={media.caption ?? work.title}
-            className="w-full h-full"
-          />
-        </div>
-        {media.caption && (
-          <p className="text-slate-500 text-xs text-center">{media.caption}</p>
-        )}
+        {/* ビューア */}
+        <DriveEmbed item={current} title={work.title} />
+
+        {/* 外部リンク */}
         <a
-          href={media.url}
+          href={current.url.replace('/preview', '/view')}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-cyan-400 hover:text-cyan-300 text-xs text-center transition-colors"
+          className="block text-center text-cyan-500 hover:text-cyan-300 text-xs mt-2 transition-colors"
         >
           別タブで開く →
         </a>
-      </div>
-    )
-  }
-
-  // 画像
-  if (media?.type === 'image') {
-    return (
-      <div className="flex flex-col gap-3">
-        <div className="w-full rounded-xl overflow-hidden bg-[#050f1c] border border-[#1a4060]">
-          <img
-            src={media.url}
-            alt={media.caption ?? work.title}
-            className="w-full h-auto object-cover"
-          />
-        </div>
-        {media.caption && (
-          <p className="text-slate-500 text-xs text-center">{media.caption}</p>
-        )}
       </div>
     )
   }
@@ -85,7 +90,6 @@ function MediaPanel({ work }) {
           <p className="text-emerald-300 text-sm leading-relaxed">{status}</p>
         </div>
       )}
-
       <div className="flex-1 flex flex-col justify-end gap-3">
         {github && (
           <a
