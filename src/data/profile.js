@@ -46,11 +46,11 @@ export const works = [
   },
   {
     id: 'script-analyzer',
-    title: '台本解析アプリ',
+    title: '台本解析システム',
     subtitle: '俳優・声優のためのセリフ暗記支援',
     badge: '個人開発',
     badgeColor: 'blue',
-    description: 'プロの声優として自分が欲しかったツール。台本をAIが読み上げ、自分のターンで自動停止。通勤中でも練習できる。',
+    description: 'プロの声優として自分が欲しかったローカルシステム。台本をAIが読み上げ、自分のターンで自動停止。',
     motivation: 'プロの声優として現場で感じた「相手役なしに練習できない」という課題を技術で解決したかった。',
     features: [
       'テキスト・PDF・画像（β）から台本取り込み',
