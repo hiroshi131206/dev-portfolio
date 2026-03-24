@@ -87,7 +87,7 @@ export const works = [
     description: '介護状態の父が食べ物を無断で食べてしまう問題をセンシングと通知で解決するシステム。介護の現場で直面した具体的な課題をエンジニアとして解決した試み。',
     motivation: '介護の現場で直面した具体的な課題をエンジニアとして解決しようとした試み。',
     features: [
-      '食品へのアクセスを重量・赤外線センサーで検知',
+      'カメラで食品へのアクセスを検知（映像による行動検出）',
       '家族スマートフォンへのリアルタイムプッシュ通知',
       'Raspberry Pi ベースの低コスト構成',
     ],
@@ -108,7 +108,12 @@ export const works = [
       'CAD設計 → 3Dプリント出力（マイクアクセサリー・収納パーツ等）',
     ],
     tags: ['Blender', 'UE5', 'CAD', '3Dプリント', 'FDM'],
-    media: null,
+    media: [
+      { type: 'image', url: '/images/cg-01.jpg',      label: 'Blender モデリング①', icon: 'image' },
+      { type: 'image', url: '/images/cg-02.png',      label: 'Blender モデリング②', icon: 'image' },
+      { type: 'image', url: '/images/cg-03.png',      label: 'CAD 設計',              icon: 'image' },
+      { type: 'image', url: '/images/3dprint-01.png', label: '3Dプリンタ',            icon: 'image' },
+    ],
   },
 ]
 
