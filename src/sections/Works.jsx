@@ -12,9 +12,7 @@ const badgeStyles = {
 // ============================================================
 function DriveEmbed({ item, title }) {
   return (
-    <div className={`w-full rounded-b-xl overflow-hidden bg-[#050f1c] border-x border-b border-[#1a4060] ${
-      item.icon === 'video' ? 'aspect-video' : 'h-[420px]'
-    }`}>
+    <div className="w-full h-[420px] rounded-b-xl overflow-hidden bg-[#050f1c] border-x border-b border-[#1a4060]">
       <iframe
         src={item.url}
         title={item.label ?? title}
