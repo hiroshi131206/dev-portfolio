@@ -8,23 +8,30 @@ export default function CursorRipple() {
     if (!container) return
 
     if (isClick) {
-      // クリック時: 3重の同心円を時差で展開
+      // クリック: 3重同心円バースト
       for (let i = 0; i < 3; i++) {
         const el = document.createElement('div')
         el.className = `cr cr--click cr--click-${i + 1}`
         el.style.left = x + 'px'
         el.style.top = y + 'px'
         container.appendChild(el)
-        setTimeout(() => el.remove(), 1400)
+        setTimeout(() => el.remove(), 1500)
       }
     } else {
-      // 移動時: 小さなリングを1つ展開
-      const el = document.createElement('div')
-      el.className = 'cr'
-      el.style.left = x + 'px'
-      el.style.top = y + 'px'
-      container.appendChild(el)
-      setTimeout(() => el.remove(), 800)
+      // 移動: 即時フラッシュドット + 拡張リング
+      const dot = document.createElement('div')
+      dot.className = 'cr-dot'
+      dot.style.left = x + 'px'
+      dot.style.top = y + 'px'
+      container.appendChild(dot)
+      setTimeout(() => dot.remove(), 400)
+
+      const ring = document.createElement('div')
+      ring.className = 'cr'
+      ring.style.left = x + 'px'
+      ring.style.top = y + 'px'
+      container.appendChild(ring)
+      setTimeout(() => ring.remove(), 900)
     }
   }, [])
 
@@ -33,7 +40,7 @@ export default function CursorRipple() {
 
     const onMove = (e) => {
       const now = Date.now()
-      if (now - last < 65) return
+      if (now - last < 60) return
       last = now
       spawn(e.clientX, e.clientY, false)
     }
