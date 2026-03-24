@@ -23,7 +23,7 @@ function WorkModal({ work, onClose }) {
               {work.badge}
             </span>
             <h3 className="text-2xl font-bold text-white mt-2">{work.title}</h3>
-            <p className="text-slate-400">{work.subtitle}</p>
+            <p className="text-slate-300">{work.subtitle}</p>
           </div>
           <button onClick={onClose} className="text-slate-500 hover:text-white text-2xl leading-none">×</button>
         </div>
@@ -90,7 +90,7 @@ export default function Works() {
         {works.map((work) => (
           <button
             key={work.id}
-            className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 text-left hover:border-violet-700 hover:bg-slate-900 transition-all group cursor-pointer"
+            className="bg-[#0e0e1c] border border-slate-700 rounded-xl p-6 text-left hover:border-violet-600 hover:bg-[#11112a] transition-all group cursor-pointer"
             onClick={() => setSelected(work)}
           >
             <div className="flex items-start justify-between mb-4">
@@ -100,11 +100,11 @@ export default function Works() {
               <span className="text-slate-600 group-hover:text-violet-500 transition-colors text-lg">→</span>
             </div>
             <h3 className="text-white font-semibold mb-1">{work.title}</h3>
-            <p className="text-slate-500 text-sm mb-4">{work.subtitle}</p>
-            <p className="text-slate-400 text-sm leading-relaxed line-clamp-3">{work.description}</p>
+            <p className="text-slate-400 text-sm mb-4">{work.subtitle}</p>
+            <p className="text-slate-300 text-sm leading-relaxed line-clamp-3">{work.description}</p>
             <div className="flex flex-wrap gap-1.5 mt-4">
               {work.tags.slice(0, 3).map((t) => (
-                <span key={t} className="text-xs bg-slate-800 text-slate-500 px-2 py-0.5 rounded">
+                <span key={t} className="text-xs bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded">
                   {t}
                 </span>
               ))}

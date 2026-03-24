@@ -5,16 +5,19 @@ const links = [
     label: 'Email',
     value: profile.email,
     href: `mailto:${profile.email}`,
+    icon: '✉',
   },
   {
     label: 'GitHub',
     value: 'hiroshi131206',
     href: profile.github,
+    icon: '⌥',
   },
   {
     label: '声優ポートフォリオ',
     value: 'hiroshi131206.github.io',
     href: profile.voicePortfolio,
+    icon: '🎙',
   },
 ]
 
@@ -32,13 +35,14 @@ export default function Contact() {
             href={l.href}
             target={l.href.startsWith('http') ? '_blank' : undefined}
             rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            className="flex items-center justify-between bg-slate-900/50 border border-slate-800 rounded-xl px-6 py-4 hover:border-violet-700 hover:bg-slate-900 transition-all group"
+            className="flex items-center gap-5 card hover:border-violet-500 group"
           >
-            <div>
-              <p className="text-slate-500 text-xs uppercase tracking-wider mb-0.5">{l.label}</p>
-              <p className="text-slate-200 text-sm">{l.value}</p>
+            <span className="text-2xl w-10 text-center flex-shrink-0">{l.icon}</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-violet-400 text-xs font-mono uppercase tracking-wider mb-0.5">{l.label}</p>
+              <p className="text-slate-100 text-sm font-medium truncate">{l.value}</p>
             </div>
-            <span className="text-slate-600 group-hover:text-violet-500 transition-colors">→</span>
+            <span className="text-slate-500 group-hover:text-violet-400 transition-colors text-lg flex-shrink-0">→</span>
           </a>
         ))}
       </div>

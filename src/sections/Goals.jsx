@@ -34,16 +34,13 @@ export default function Goals() {
 
       <div className="grid sm:grid-cols-2 gap-5">
         {goals.map((g) => (
-          <div
-            key={g.title}
-            className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-violet-800 transition-colors"
-          >
-            <div className="text-3xl mb-3">{g.icon}</div>
-            <h3 className="text-white font-semibold mb-2">{g.title}</h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-4">{g.desc}</p>
+          <div key={g.title} className="card">
+            <div className="text-4xl mb-4">{g.icon}</div>
+            <h3 className="text-white font-semibold text-base mb-2">{g.title}</h3>
+            <p className="text-slate-300 text-sm leading-relaxed mb-4">{g.desc}</p>
             <div className="flex flex-wrap gap-1.5">
               {g.tags.map((t) => (
-                <span key={t} className="text-xs bg-slate-800 text-slate-500 px-2 py-0.5 rounded">
+                <span key={t} className="text-xs bg-slate-800 text-slate-300 border border-slate-700 px-2.5 py-0.5 rounded-full">
                   {t}
                 </span>
               ))}
