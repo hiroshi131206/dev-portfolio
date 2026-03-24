@@ -1,77 +1,98 @@
-import { voiceWorks, profile } from '../data/profile'
+import { profile } from '../data/profile'
 
-const equipment = [
-  { label: 'マイク', items: ['NEUMANN U87 Ai', 'TLM 103', 'SHURE SM7dB'] },
-  { label: 'DAW', items: ['Pro Tools', 'Cubase 13 Pro', 'Adobe Audition'] },
+const works = [
+  { category: 'CM',     title: '東芝 ZABOON',     role: 'ナレーション' },
+  { category: 'CM',     title: '日本特殊陶業',     role: 'ナレーション' },
+  { category: 'VP',     title: 'トヨタ自動車',     role: 'ナレーション' },
+  { category: 'VP',     title: '名古屋大学',        role: 'ナレーション' },
+  { category: 'アニメ', title: '薬屋のひとりごと', role: '宦官役' },
+  { category: 'ゲーム', title: '原神',              role: 'NPC役' },
 ]
 
 const categoryColors = {
-  'アニメ': 'text-pink-300 bg-pink-900/40 border-pink-700',
-  'ゲーム': 'text-cyan-300 bg-cyan-900/40 border-cyan-700',
   'CM':     'text-amber-300 bg-amber-900/40 border-amber-700',
   'VP':     'text-emerald-300 bg-emerald-900/40 border-emerald-700',
+  'アニメ': 'text-pink-300 bg-pink-900/40 border-pink-700',
+  'ゲーム': 'text-cyan-300 bg-cyan-900/40 border-cyan-700',
 }
 
 export default function Voice() {
   return (
     <section id="voice" className="section">
-      <p className="text-cyan-400 text-xs font-mono tracking-widest uppercase mb-2">Voice</p>
-      <h2 className="section-title">声優・ナレーター活動</h2>
-      <p className="section-sub">HAL入学以前からプロとして活動中</p>
+      <p className="text-cyan-400 text-xs font-mono tracking-widest uppercase mb-2">Other Activities</p>
+      <h2 className="section-title">その他の活動</h2>
+      <p className="section-sub">タレント・ナレーター活動</p>
 
-      <div className="grid md:grid-cols-2 gap-8">
-        {/* 実績 */}
-        <div>
-          <h3 className="text-white font-semibold mb-4 border-b border-slate-700 pb-3">主な実績</h3>
-          <div className="space-y-2.5">
-            {voiceWorks.map((w) => (
-              <div
-                key={`${w.title}-${w.role}`}
-                className="flex items-center gap-3 bg-[#0e0e1c] border border-slate-700 rounded-lg px-4 py-3"
-              >
-                <span className={`text-xs px-2 py-0.5 rounded border flex-shrink-0 ${categoryColors[w.category]}`}>
-                  {w.category}
-                </span>
-                <span className="text-slate-100 text-sm flex-1 font-medium">{w.title}</span>
-                <span className="text-slate-400 text-xs flex-shrink-0">{w.role}</span>
+      <div className="grid md:grid-cols-2 gap-10 items-start">
+
+        {/* 左: 経歴 + 実績 */}
+        <div className="space-y-6">
+          {/* 経歴 */}
+          <div className="card p-6 space-y-3">
+            <p className="text-cyan-400 text-xs font-mono uppercase tracking-wider mb-1">経歴</p>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              高校在学中に配信サービス上でスカウトを受け、<span className="text-white font-semibold">NTC事務所</span>の研修生として所属。高校卒業と同時にタレントとしてデビュー。
+            </p>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              東海圏を中心に、ラジオCMや企業VPなどナレーションを主軸に活動。医学部浪人期間中も活動を継続し、現在もHAL在学と並行してプロとして案件に対応している。
+            </p>
+          </div>
+
+          {/* 実績 */}
+          <div>
+            <p className="text-slate-500 text-xs font-mono uppercase tracking-wider mb-3">主な実績</p>
+            <div className="space-y-2">
+              {works.map((w) => (
+                <div
+                  key={`${w.title}-${w.role}`}
+                  className="flex items-center gap-3 bg-[#071828] border border-[#1a4060] rounded-lg px-4 py-2.5"
+                >
+                  <span className={`text-xs px-2 py-0.5 rounded border flex-shrink-0 ${categoryColors[w.category]}`}>
+                    {w.category}
+                  </span>
+                  <span className="text-slate-200 text-sm flex-1 font-medium">{w.title}</span>
+                  <span className="text-slate-500 text-xs flex-shrink-0">{w.role}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* 右: ポートフォリオサイトプレビュー */}
+        <div className="space-y-3">
+          <p className="text-slate-500 text-xs font-mono uppercase tracking-wider">声優ポートフォリオサイト</p>
+          <div className="rounded-xl overflow-hidden border border-[#1a4060] bg-[#050f1c]">
+            {/* アドレスバー風ヘッダー */}
+            <div className="flex items-center gap-2 px-4 py-2.5 bg-[#071828] border-b border-[#1a4060]">
+              <div className="flex gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/60" />
               </div>
-            ))}
+              <span className="text-slate-500 text-xs font-mono flex-1 text-center truncate">
+                hiroshi131206.github.io
+              </span>
+            </div>
+            {/* iframe */}
+            <div className="w-full h-[340px]">
+              <iframe
+                src={profile.voicePortfolio}
+                title="声優ポートフォリオサイト"
+                className="w-full h-full"
+                loading="lazy"
+              />
+            </div>
           </div>
           <a
             href={profile.voicePortfolio}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-6 text-cyan-400 hover:text-cyan-300 text-sm transition-colors font-medium"
+            className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm transition-colors"
           >
-            声優ポートフォリオサイトを見る →
+            別タブで開く →
           </a>
         </div>
 
-        {/* 機材・スタジオ */}
-        <div className="space-y-4">
-          {equipment.map((e) => (
-            <div key={e.label} className="card">
-              <h4 className="text-cyan-300 text-xs font-mono uppercase tracking-wider mb-3">{e.label}</h4>
-              <ul className="space-y-2">
-                {e.items.map((item) => (
-                  <li key={item} className="text-slate-200 text-sm flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          <div className="card">
-            <h4 className="text-cyan-300 text-xs font-mono uppercase tracking-wider mb-3">自宅スタジオ</h4>
-            <p className="text-slate-300 text-sm leading-relaxed">
-              電動昇降デスクを中心としたPCデスク環境をDIYで構築。
-              吸音パネルの配置・機材レイアウトを繰り返し見直し、録音品質と作業効率を両立。
-              CADで設計したマイクアクセサリーを3Dプリンターで自作。
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   )
