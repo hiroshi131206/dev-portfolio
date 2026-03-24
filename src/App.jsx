@@ -1,4 +1,5 @@
 import Nav from './components/Nav'
+import CursorRipple from './components/CursorRipple'
 import Hero from './sections/Hero'
 import About from './sections/About'
 import Works from './sections/Works'
@@ -12,6 +13,7 @@ import Contact from './sections/Contact'
 export default function App() {
   return (
     <>
+      <CursorRipple />
       <Nav />
       <main>
         <Hero />
