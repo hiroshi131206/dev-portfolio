@@ -2,141 +2,187 @@ import { useRef, useMemo } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { profile } from '../data/profile'
 
-// メインパーティクル: 小さく大量、球状分布
-function SmallParticles() {
+// ---- 小さな星たち（白・青白・薄黄で色分け） ----
+function StarField() {
   const ref = useRef()
-  const count = 4000
+  const count = 6000
 
-  const positions = useMemo(() => {
-    const arr = new Float32Array(count * 3)
+  const { positions, colors } = useMemo(() => {
+    const positions = new Float32Array(count * 3)
+    const colors    = new Float32Array(count * 3)
     for (let i = 0; i < count; i++) {
-      const r = 8 + Math.random() * 12
+      const r     = 18 + Math.random() * 28
       const theta = Math.random() * Math.PI * 2
-      const phi = Math.acos(2 * Math.random() - 1)
-      arr[i * 3]     = r * Math.sin(phi) * Math.cos(theta)
-      arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta)
-      arr[i * 3 + 2] = r * Math.cos(phi)
+      const phi   = Math.acos(2 * Math.random() - 1)
+      positions[i * 3]     = r * Math.sin(phi) * Math.cos(theta)
+      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta)
+      positions[i * 3 + 2] = r * Math.cos(phi)
+
+      const t = Math.random()
+      if (t < 0.65) {
+        // 白
+        const b = 0.85 + Math.random() * 0.15
+        colors[i * 3] = colors[i * 3 + 1] = colors[i * 3 + 2] = b
+      } else if (t < 0.87) {
+        // 青白
+        colors[i * 3]     = 0.65 + Math.random() * 0.2
+        colors[i * 3 + 1] = 0.78 + Math.random() * 0.15
+        colors[i * 3 + 2] = 1.0
+      } else {
+        // 薄橙/黄
+        colors[i * 3]     = 1.0
+        colors[i * 3 + 1] = 0.82 + Math.random() * 0.12
+        colors[i * 3 + 2] = 0.55 + Math.random() * 0.2
+      }
     }
-    return arr
+    return { positions, colors }
   }, [])
 
   useFrame(({ clock }) => {
     const t = clock.elapsedTime
-    ref.current.rotation.y = t * 0.07
-    ref.current.rotation.x = Math.sin(t * 0.025) * 0.25
-    ref.current.rotation.z = Math.cos(t * 0.018) * 0.12
+    ref.current.rotation.y = t * 0.012
+    ref.current.rotation.x = Math.sin(t * 0.006) * 0.04
   })
 
   return (
     <points ref={ref}>
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+        <bufferAttribute attach="attributes-color"    args={[colors, 3]} />
       </bufferGeometry>
-      <pointsMaterial color="#7c3aed" size={0.055} sizeAttenuation transparent opacity={0.9} />
+      <pointsMaterial size={0.038} sizeAttenuation transparent opacity={0.88} vertexColors />
     </points>
   )
 }
 
-// 中間パーティクル: 明るい紫、逆回転、息継ぎする透明度
-function MidParticles() {
-  const ref = useRef()
-  const count = 350
+// ---- きらめく明るい星（3グループで位相ずれ） ----
+function TwinkleStars() {
+  const r0 = useRef(), r1 = useRef(), r2 = useRef()
+  const refs = [r0, r1, r2]
 
-  const positions = useMemo(() => {
-    const arr = new Float32Array(count * 3)
-    for (let i = 0; i < count; i++) {
-      arr[i * 3]     = (Math.random() - 0.5) * 32
-      arr[i * 3 + 1] = (Math.random() - 0.5) * 32
-      arr[i * 3 + 2] = (Math.random() - 0.5) * 20
-    }
-    return arr
-  }, [])
+  const groups = useMemo(() =>
+    [
+      { count: 90,  color: '#ffffff', size: 0.14 },
+      { count: 70,  color: '#b0c8ff', size: 0.18 },
+      { count: 55,  color: '#ffd580', size: 0.13 },
+    ].map(({ count }) => {
+      const arr = new Float32Array(count * 3)
+      for (let i = 0; i < count; i++) {
+        arr[i * 3]     = (Math.random() - 0.5) * 50
+        arr[i * 3 + 1] = (Math.random() - 0.5) * 50
+        arr[i * 3 + 2] = (Math.random() - 0.5) * 25
+      }
+      return arr
+    }), [])
 
-  useFrame(({ clock }) => {
-    const t = clock.elapsedTime
-    ref.current.rotation.y = -t * 0.045
-    ref.current.rotation.x = Math.cos(t * 0.022) * 0.18
-    ref.current.material.opacity = 0.45 + Math.sin(t * 0.9) * 0.35
-  })
-
-  return (
-    <points ref={ref}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-      </bufferGeometry>
-      <pointsMaterial color="#a78bfa" size={0.2} sizeAttenuation transparent opacity={0.7} />
-    </points>
-  )
-}
-
-// 輝く星: 少数・大きい、サイズと透明度がパルス
-function GlowStars() {
-  const ref = useRef()
-  const count = 70
-
-  const positions = useMemo(() => {
-    const arr = new Float32Array(count * 3)
-    for (let i = 0; i < count; i++) {
-      arr[i * 3]     = (Math.random() - 0.5) * 26
-      arr[i * 3 + 1] = (Math.random() - 0.5) * 26
-      arr[i * 3 + 2] = (Math.random() - 0.5) * 14
-    }
-    return arr
-  }, [])
+  const meta = [
+    { color: '#ffffff', size: 0.14, phase: 0,   speed: 1.4 },
+    { color: '#b0c8ff', size: 0.18, phase: 2.1, speed: 0.9 },
+    { color: '#ffd580', size: 0.13, phase: 4.3, speed: 1.7 },
+  ]
 
   useFrame(({ clock }) => {
     const t = clock.elapsedTime
-    ref.current.rotation.y = t * 0.025
-    ref.current.material.size    = 0.38 + Math.sin(t * 1.1) * 0.18
-    ref.current.material.opacity = 0.55 + Math.sin(t * 0.85) * 0.35
-  })
-
-  return (
-    <points ref={ref}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-      </bufferGeometry>
-      <pointsMaterial color="#c4b5fd" size={0.38} sizeAttenuation transparent opacity={0.75} />
-    </points>
-  )
-}
-
-// 軌道リング: 3重のトーラスがそれぞれ異なる軸で回転
-function OrbitalRings() {
-  const r1 = useRef()
-  const r2 = useRef()
-  const r3 = useRef()
-
-  useFrame(({ clock }) => {
-    const t = clock.elapsedTime
-
-    r1.current.rotation.x = t * 0.12
-    r1.current.rotation.y = t * 0.08
-    r1.current.material.opacity = 0.07 + Math.sin(t * 0.6) * 0.04
-
-    r2.current.rotation.x = t * 0.07 + 1.2
-    r2.current.rotation.z = t * 0.1
-    r2.current.material.opacity = 0.05 + Math.sin(t * 0.45 + 1) * 0.03
-
-    r3.current.rotation.y = t * 0.06 + 2.4
-    r3.current.rotation.z = t * 0.09
-    r3.current.material.opacity = 0.04 + Math.sin(t * 0.55 + 2) * 0.025
+    refs.forEach((ref, i) => {
+      ref.current.material.opacity = 0.5 + Math.sin(t * meta[i].speed + meta[i].phase) * 0.45
+    })
   })
 
   return (
     <>
-      <mesh ref={r1}>
-        <torusGeometry args={[6.5, 0.018, 4, 200]} />
-        <meshBasicMaterial color="#7c3aed" transparent opacity={0.07} />
-      </mesh>
-      <mesh ref={r2}>
-        <torusGeometry args={[10, 0.014, 4, 220]} />
-        <meshBasicMaterial color="#6d28d9" transparent opacity={0.05} />
-      </mesh>
-      <mesh ref={r3}>
-        <torusGeometry args={[13.5, 0.01, 4, 240]} />
-        <meshBasicMaterial color="#4c1d95" transparent opacity={0.04} />
-      </mesh>
+      {groups.map((pos, i) => (
+        <points ref={refs[i]} key={i}>
+          <bufferGeometry>
+            <bufferAttribute attach="attributes-position" args={[pos, 3]} />
+          </bufferGeometry>
+          <pointsMaterial
+            color={meta[i].color}
+            size={meta[i].size}
+            sizeAttenuation transparent opacity={0.8}
+          />
+        </points>
+      ))}
+    </>
+  )
+}
+
+// ---- 星雲（大粒・低透明度の3色霧） ----
+function Nebula() {
+  const r0 = useRef(), r1 = useRef(), r2 = useRef()
+  const refs = [r0, r1, r2]
+
+  const clouds = useMemo(() =>
+    [
+      { count: 900,  spread: 16, offZ: -4 },
+      { count: 700,  spread: 20, offZ: -7 },
+      { count: 500,  spread: 24, offZ: -10 },
+    ].map(({ count, spread, offZ }) => {
+      const arr = new Float32Array(count * 3)
+      for (let i = 0; i < count; i++) {
+        const theta = Math.random() * Math.PI * 2
+        const r     = Math.pow(Math.random(), 0.6) * spread
+        arr[i * 3]     = r * Math.cos(theta) + (Math.random() - 0.5) * 6
+        arr[i * 3 + 1] = (Math.random() - 0.5) * spread * 0.55
+        arr[i * 3 + 2] = r * Math.sin(theta) * 0.35 + offZ
+      }
+      return arr
+    }), [])
+
+  const meta = [
+    { color: '#5b21b6', size: 0.9,  baseOp: 0.10, amp: 0.04, speed: 0.28 },
+    { color: '#1e3a8a', size: 1.1,  baseOp: 0.07, amp: 0.03, speed: 0.22 },
+    { color: '#7f1d1d', size: 1.4,  baseOp: 0.05, amp: 0.02, speed: 0.18 },
+  ]
+
+  useFrame(({ clock }) => {
+    const t = clock.elapsedTime
+    r0.current.rotation.z = t * 0.007
+    r1.current.rotation.z = -t * 0.005
+    r2.current.rotation.y = t * 0.004
+    refs.forEach((ref, i) => {
+      ref.current.material.opacity = meta[i].baseOp + Math.sin(t * meta[i].speed + i) * meta[i].amp
+    })
+  })
+
+  return (
+    <>
+      {clouds.map((pos, i) => (
+        <points ref={refs[i]} key={i}>
+          <bufferGeometry>
+            <bufferAttribute attach="attributes-position" args={[pos, 3]} />
+          </bufferGeometry>
+          <pointsMaterial
+            color={meta[i].color}
+            size={meta[i].size}
+            sizeAttenuation transparent opacity={meta[i].baseOp}
+          />
+        </points>
+      ))}
+    </>
+  )
+}
+
+// ---- 軌道リング（宇宙ステーション風） ----
+function OrbitalRings() {
+  const r1 = useRef(), r2 = useRef(), r3 = useRef()
+
+  useFrame(({ clock }) => {
+    const t = clock.elapsedTime
+    r1.current.rotation.x = t * 0.10;  r1.current.rotation.y = t * 0.07
+    r1.current.material.opacity = 0.06 + Math.sin(t * 0.55) * 0.03
+
+    r2.current.rotation.x = t * 0.06 + 1.2;  r2.current.rotation.z = t * 0.09
+    r2.current.material.opacity = 0.04 + Math.sin(t * 0.4 + 1) * 0.025
+
+    r3.current.rotation.y = t * 0.05 + 2.4;  r3.current.rotation.z = t * 0.08
+    r3.current.material.opacity = 0.03 + Math.sin(t * 0.5 + 2) * 0.02
+  })
+
+  return (
+    <>
+      <mesh ref={r1}><torusGeometry args={[7, 0.016, 4, 200]} /><meshBasicMaterial color="#7c3aed" transparent opacity={0.06} /></mesh>
+      <mesh ref={r2}><torusGeometry args={[11, 0.012, 4, 220]} /><meshBasicMaterial color="#1e40af" transparent opacity={0.04} /></mesh>
+      <mesh ref={r3}><torusGeometry args={[15, 0.009, 4, 240]} /><meshBasicMaterial color="#4c1d95" transparent opacity={0.03} /></mesh>
     </>
   )
 }
@@ -144,20 +190,17 @@ function OrbitalRings() {
 export default function Hero() {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Three.js背景 */}
       <div className="absolute inset-0">
-        <Canvas camera={{ position: [0, 0, 10], fov: 60 }}>
-          <SmallParticles />
-          <MidParticles />
-          <GlowStars />
+        <Canvas camera={{ position: [0, 0, 12], fov: 65 }}>
+          <Nebula />
+          <StarField />
+          <TwinkleStars />
           <OrbitalRings />
         </Canvas>
       </div>
 
-      {/* グラデーションオーバーレイ */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f]/20 via-transparent to-[#0a0a0f]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f]/10 via-transparent to-[#0a0a0f]" />
 
-      {/* コンテンツ */}
       <div className="relative z-10 text-center px-6">
         <p className="text-violet-400 text-sm font-mono tracking-widest mb-4 uppercase">
           Portfolio
@@ -176,42 +219,24 @@ export default function Hero() {
         </p>
 
         <div className="flex gap-4 justify-center flex-wrap">
-          <a
-            href="#works"
-            className="px-6 py-3 bg-violet-600 hover:bg-violet-500 text-white rounded-lg font-medium transition-colors"
-          >
+          <a href="#works" className="px-6 py-3 bg-violet-600 hover:bg-violet-500 text-white rounded-lg font-medium transition-colors">
             制作物を見る
           </a>
-          <a
-            href="#contact"
-            className="px-6 py-3 border border-slate-600 hover:border-slate-400 text-slate-300 hover:text-white rounded-lg font-medium transition-colors"
-          >
+          <a href="#contact" className="px-6 py-3 border border-slate-600 hover:border-slate-400 text-slate-300 hover:text-white rounded-lg font-medium transition-colors">
             連絡する
           </a>
         </div>
 
-        {/* GitHub リンク */}
         <div className="mt-8 flex gap-6 justify-center">
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-slate-500 hover:text-slate-300 text-sm transition-colors"
-          >
+          <a href={profile.github} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-300 text-sm transition-colors">
             GitHub
           </a>
-          <a
-            href={profile.voicePortfolio}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-slate-500 hover:text-slate-300 text-sm transition-colors"
-          >
+          <a href={profile.voicePortfolio} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-300 text-sm transition-colors">
             声優ポートフォリオ
           </a>
         </div>
       </div>
 
-      {/* スクロール誘導 */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
         <div className="w-px h-8 bg-gradient-to-b from-transparent to-slate-500" />
         <span className="text-slate-600 text-xs tracking-widest">SCROLL</span>
