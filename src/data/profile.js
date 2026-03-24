@@ -92,7 +92,10 @@ export const works = [
       'Raspberry Pi ベースの低コスト構成',
     ],
     tags: ['IoT', '介護', 'Raspberry Pi', 'センシング', 'Python'],
-    media: null,
+    media: [
+      { type: 'image', url: '/images/meal-pi.png',  label: 'Raspberry Pi（専用ケース付き）', icon: 'image' },
+      { type: 'image', url: '/images/meal-usb.png', label: 'USB 変換機器',                   icon: 'image' },
+    ],
   },
   {
     id: 'cg-works',
