@@ -25,8 +25,12 @@ export const works = [
       'AI（Claude Code）活用による開発工期短縮',
     ],
     status: '名古屋駅3店舗・在来線1店舗で試験運用継続中',
-    tags: ['要件定義', 'システム開発', 'AI活用', 'Claude Code'],
+    tags: ['React', 'Claude Code', '要件定義', 'システム開発', 'AI活用'],
     github: 'https://github.com/hiroshi131206/optima-shift-project',
+    // media: { type: 'youtube', url: 'https://www.youtube.com/embed/VIDEO_ID', caption: 'デモ動画' }
+    // media: { type: 'pdf', url: '/docs/optima-shift.pdf', caption: '要件定義書' }
+    // media: { type: 'image', url: '/images/optima-shift.png', caption: 'スクリーンショット' }
+    media: null,
   },
   {
     id: 'script-analyzer',
@@ -43,7 +47,8 @@ export const works = [
       '自分のターンで自動停止 / バックグラウンド再生対応',
       '共有コードで仲間の声を取り込み可能',
     ],
-    tags: ['AI', '音声合成', 'React', '声優'],
+    tags: ['AI', '音声合成', 'React', 'TypeScript', '声優'],
+    media: null,
   },
   {
     id: 'family-schedule',
@@ -55,10 +60,11 @@ export const works = [
     motivation: '父親の在宅介護と母親の不規則な勤務シフトにより、家族間での情報共有が困難だった課題を解決するために開発。',
     features: [
       'タッチパネルモニター（リビング・玄関）での確認',
-      'スマホ・PCから予定入力',
-      'リアルタイム同期',
+      'スマホ・PCから予定入力・リアルタイム同期',
+      '介護スタッフ・家族全員が使える直感的UI',
     ],
-    tags: ['IoT', 'タッチパネル', '介護', 'リアルタイム'],
+    tags: ['IoT', 'タッチパネル', '介護', 'リアルタイム', 'Django'],
+    media: null,
   },
   {
     id: 'meal-management',
@@ -66,13 +72,15 @@ export const works = [
     subtitle: '介護の現場課題をシステムで解決',
     badge: '個人開発',
     badgeColor: 'blue',
-    description: '介護状態の父が食べ物を無断で食べてしまう問題をセンシングと通知で解決するシステム。',
+    description: '介護状態の父が食べ物を無断で食べてしまう問題をセンシングと通知で解決するシステム。介護の現場で直面した具体的な課題をエンジニアとして解決した試み。',
     motivation: '介護の現場で直面した具体的な課題をエンジニアとして解決しようとした試み。',
     features: [
-      '食品へのアクセス検知',
-      '家族へのリアルタイム通知',
+      '食品へのアクセスを重量・赤外線センサーで検知',
+      '家族スマートフォンへのリアルタイムプッシュ通知',
+      'Raspberry Pi ベースの低コスト構成',
     ],
-    tags: ['IoT', '介護', 'センシング'],
+    tags: ['IoT', '介護', 'Raspberry Pi', 'センシング', 'Python'],
+    media: null,
   },
   {
     id: 'cg-works',
@@ -80,14 +88,15 @@ export const works = [
     subtitle: 'Blender / UE5 / CAD',
     badge: '趣味制作',
     badgeColor: 'purple',
-    description: 'UE5やBlenderでのCG映像制作、デスク環境構築のための小物をCADで設計・3Dプリント出力。',
+    description: 'UE5やBlenderでのCG映像制作、デスク環境構築のための小物をCADで設計・3Dプリント出力。ガジェット好き・DIY好きの延長として、デジタルとフィジカルをつなぐものづくりに取り組んでいる。',
     motivation: 'ガジェット好き・DIY好きの延長として、デジタルとフィジカルをつなぐものづくりに取り組んでいる。',
     features: [
-      'Blender でのモデリング・アニメーション',
-      'Unreal Engine 5 でのシーン制作',
+      'Blender でのモデリング・アニメーション・レンダリング',
+      'Unreal Engine 5 でのシーン制作・ライティング',
       'CAD設計 → 3Dプリント出力（マイクアクセサリー・収納パーツ等）',
     ],
-    tags: ['Blender', 'UE5', 'CAD', '3Dプリント'],
+    tags: ['Blender', 'UE5', 'CAD', '3Dプリント', 'FDM'],
+    media: null,
   },
 ]
 
