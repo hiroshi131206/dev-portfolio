@@ -25,7 +25,7 @@ export default function About() {
       <h2 className="section-title">自己紹介</h2>
       <p className="section-sub">現場・技術・表現の3軸を持つエンジニア</p>
 
-      <div className="grid md:grid-cols-2 gap-12 items-start">
+      <div className="grid md:grid-cols-2 gap-12 items-stretch">
         {/* テキスト */}
         <div className="text-slate-200 leading-relaxed space-y-5 text-left">
           <p>
@@ -46,9 +46,9 @@ export default function About() {
         </div>
 
         {/* 3本柱 */}
-        <div className="space-y-4">
+        <div className="flex flex-col justify-between gap-4">
           {pillars.map((p) => (
-            <div key={p.title} className="card">
+            <div key={p.title} className="card flex-1">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-2xl">{p.icon}</span>
                 <span className="text-white font-semibold text-base">{p.title}</span>

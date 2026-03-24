@@ -172,36 +172,52 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-[#040e1a]/30 via-transparent to-[#040e1a]" />
 
       <div className="relative z-10 text-center px-6">
-        <p className="text-cyan-400 text-sm font-mono tracking-widest mb-4 uppercase">
+        {/* ラベル */}
+        <p className="text-cyan-400 text-xs font-mono tracking-widest uppercase mb-8">
           Portfolio
         </p>
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight">
+
+        {/* 名前 */}
+        <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-none mb-3">
           {profile.nameEn}
         </h1>
-        <p className="text-xl md:text-2xl text-slate-200 mb-2 font-light">
+        <p className="text-2xl md:text-3xl text-slate-300 font-light mb-6">
           {profile.name}
         </p>
-        <p className="text-slate-300 mb-2">{profile.school}</p>
-        <p className="text-slate-400 text-sm mb-10">{profile.graduationYear}</p>
 
-        <p className="text-slate-200 text-lg md:text-xl max-w-xl mx-auto mb-12 leading-relaxed">
+        {/* 所属 — 1行にまとめる */}
+        <p className="text-slate-500 text-sm mb-14 tracking-wide">
+          {profile.school}
+          <span className="mx-3 text-slate-700">|</span>
+          {profile.graduationYear}
+        </p>
+
+        {/* キャッチコピー */}
+        <p className="text-slate-200 text-lg md:text-xl max-w-lg mx-auto mb-14 leading-relaxed">
           {profile.tagline}
         </p>
 
-        <div className="flex gap-4 justify-center flex-wrap">
-          <a href="#works" className="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg font-medium transition-colors">
+        {/* CTA ボタン */}
+        <div className="flex gap-4 justify-center flex-wrap mb-8">
+          <a href="#works" className="px-7 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg font-medium transition-colors">
             制作物を見る
           </a>
-          <a href="#contact" className="px-6 py-3 border border-slate-500 hover:border-cyan-400 text-slate-200 hover:text-white rounded-lg font-medium transition-colors">
+          <a href="#contact" className="px-7 py-3 border border-slate-600 hover:border-cyan-500 text-slate-300 hover:text-white rounded-lg font-medium transition-colors">
             連絡する
           </a>
         </div>
 
-        <div className="mt-8 flex gap-6 justify-center">
-          <a href={profile.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-slate-200 text-sm transition-colors">
+        {/* 外部リンク */}
+        <div className="flex gap-8 justify-center">
+          <a href={profile.github} target="_blank" rel="noopener noreferrer"
+            className="text-slate-500 hover:text-slate-300 text-sm transition-colors flex items-center gap-1.5">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+            </svg>
             GitHub
           </a>
-          <a href={profile.voicePortfolio} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-slate-200 text-sm transition-colors">
+          <a href={profile.voicePortfolio} target="_blank" rel="noopener noreferrer"
+            className="text-slate-500 hover:text-slate-300 text-sm transition-colors">
             声優ポートフォリオ
           </a>
         </div>
