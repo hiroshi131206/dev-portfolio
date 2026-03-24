@@ -40,15 +40,15 @@ export default function CursorRipple() {
 
     // ---- 衝突リング生成 ----
     const addImpact = (x, y) => {
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 2; i++) {
         impacts.push({
           x, y,
           r: 4,
-          speed: 10 + i * 5,
-          opacity: 1 - i * 0.15,
-          fade: 0.022 - i * 0.003,
-          lw: 3.5 - i * 0.5,
-          delay: i * 60,
+          speed: 8 + i * 4,
+          opacity: 0.8 - i * 0.2,
+          fade: 0.026 - i * 0.004,
+          lw: 2.5 - i * 0.5,
+          delay: i * 80,
           born: Date.now(),
         })
       }
@@ -193,7 +193,7 @@ export default function CursorRipple() {
 
     const onClick = (e) => {
       addImpact(e.clientX, e.clientY)
-      addSparks(e.clientX, e.clientY, 20, 1.4)
+      addSparks(e.clientX, e.clientY, 7, 1.0)
     }
 
     window.addEventListener('mousemove', onMove)

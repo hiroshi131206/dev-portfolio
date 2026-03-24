@@ -113,25 +113,27 @@ function Nebula() {
 
   const clouds = useMemo(() =>
     [
-      { count: 900,  spread: 16, offZ: -4 },
-      { count: 700,  spread: 20, offZ: -7 },
-      { count: 500,  spread: 24, offZ: -10 },
-    ].map(({ count, spread, offZ }) => {
+      { count: 700, spread: 22 },
+      { count: 500, spread: 28 },
+      { count: 400, spread: 34 },
+    ].map(({ count, spread }) => {
       const arr = new Float32Array(count * 3)
       for (let i = 0; i < count; i++) {
+        // 均一な球状分布（中心集中なし）
+        const r     = (0.4 + Math.random() * 0.6) * spread
         const theta = Math.random() * Math.PI * 2
-        const r     = Math.pow(Math.random(), 0.6) * spread
-        arr[i * 3]     = r * Math.cos(theta) + (Math.random() - 0.5) * 6
-        arr[i * 3 + 1] = (Math.random() - 0.5) * spread * 0.55
-        arr[i * 3 + 2] = r * Math.sin(theta) * 0.35 + offZ
+        const phi   = Math.acos(2 * Math.random() - 1)
+        arr[i * 3]     = r * Math.sin(phi) * Math.cos(theta)
+        arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta)
+        arr[i * 3 + 2] = r * Math.cos(phi)
       }
       return arr
     }), [])
 
   const meta = [
-    { color: '#5b21b6', size: 0.9,  baseOp: 0.10, amp: 0.04, speed: 0.28 },
-    { color: '#1e3a8a', size: 1.1,  baseOp: 0.07, amp: 0.03, speed: 0.22 },
-    { color: '#7f1d1d', size: 1.4,  baseOp: 0.05, amp: 0.02, speed: 0.18 },
+    { color: '#3b0764', size: 0.32, baseOp: 0.055, amp: 0.02, speed: 0.28 },
+    { color: '#1e3a8a', size: 0.38, baseOp: 0.040, amp: 0.015, speed: 0.22 },
+    { color: '#4a1942', size: 0.45, baseOp: 0.030, amp: 0.01, speed: 0.18 },
   ]
 
   useFrame(({ clock }) => {
