@@ -181,7 +181,7 @@ export default function Hero() {
         <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-none mb-5">
           {profile.nameEn}
         </h1>
-        <p className="text-2xl md:text-3xl text-slate-300 font-light mb-10">
+        <p className="font-mincho font-semibold text-3xl md:text-4xl text-slate-200 tracking-[0.35em] pl-[0.35em] mb-10">
           {profile.name}
         </p>
 

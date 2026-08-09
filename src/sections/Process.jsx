@@ -4,8 +4,8 @@ const agents = [
     vendor: 'Anthropic',
     color: 'cyan',
     role: '実装・設計の主軸',
-    tasks: ['要件定義書・設計ドキュメント生成', 'コード実装・レビュー・リファクタリング', 'autoresearch 自律改善ループ', 'セキュリティ監査（OWASP Top 10）'],
-    token: '複雑な判断・アーキテクチャ決定に集中。定型作業は他モデルに委譲してトークンを節約。',
+    tasks: ['要件定義書・設計ドキュメント生成', 'コード実装・レビュー・リファクタリング', 'サブエージェント / Agent Teams による並列開発', 'MCP で外部ツール・データソース連携', 'autoresearch 自律改善ループ'],
+    token: '複雑な判断・アーキテクチャ決定に集中。定型作業はサブエージェントや他モデルに委譲してコンテキストを節約。',
   },
   {
     name: 'Gemini',
@@ -24,12 +24,12 @@ const agents = [
     token: '大量の参考資料を事前に処理。Claude のコンテキストに持ち込む情報量を最小化。',
   },
   {
-    name: 'Codex / GPT-4o',
+    name: 'Codex / GPT-5',
     vendor: 'OpenAI',
     color: 'emerald',
     role: 'セカンドオピニオン',
-    tasks: ['Claude の実装案に対する代替案の提示', '小規模な補完・スニペット生成', 'アルゴリズム選定の比較検討', '特定ライブラリの詳細な使い方確認'],
-    token: '定型的な補完・短いタスクに限定。高コストなモデルの使用を必要な場面に絞る。',
+    tasks: ['Claude の実装案に対する代替案の提示', 'クラウド委譲による並列タスク実行', 'アルゴリズム選定の比較検討', '特定ライブラリの詳細な使い方確認'],
+    token: '定型的な補完・独立タスクに限定。高コストなモデルの使用を必要な場面に絞る。',
   },
 ]
 
@@ -45,8 +45,15 @@ const infraItems = [
     label: 'エージェント (Agents)',
     color: 'emerald',
     what: '専門特化した AI の役割',
-    desc: 'code-reviewer・tdd-guide・security-reviewer など、特定タスクに特化した AI の「役」。それぞれが独自のコンテキストと指示を持ち、コードレビュー・TDD・セキュリティ監査を専門家として担当する。',
+    desc: 'code-reviewer・tdd-guide・security-reviewer など、特定タスクに特化した AI の「役」。それぞれが独自のコンテキストを持ち、並列に委譲することで開発時間を大幅に短縮できる。',
     example: ['code-reviewer', 'tdd-guide', 'security-reviewer'],
+  },
+  {
+    label: 'スキル (Skills)',
+    color: 'violet',
+    what: '手順書のパッケージ化',
+    desc: 'レビュー手順・帳票生成・デプロイ手順など、特定タスクの「やり方」をフォルダ単位でパッケージ化。必要になった時だけ読み込まれるため、コンテキストを圧迫せずにノウハウを再利用できる。',
+    example: ['code-review', 'xlsx-report', 'deploy'],
   },
   {
     label: 'フック (Hooks)',
@@ -87,18 +94,18 @@ export default function Process() {
         {/* ========== PHASE 01 ========== */}
         <div>
           <PhaseHeader num="01" title='要件は「聞き取る」のではなく「開発する」' color="cyan" />
-          <div className="grid md:grid-cols-2 gap-6 items-start">
+          <div className="grid md:grid-cols-2 gap-6">
             {/* 図 */}
-            <div className="rounded-xl border border-[#1a4060] bg-[#050f1c] p-6 space-y-4 text-sm font-mono">
-              <p className="text-slate-600 text-xs uppercase tracking-wider">一般的な誤解</p>
+            <div className="rounded-xl border border-[#1a4060] bg-[#050f1c] p-6 h-full flex flex-col justify-center space-y-4 text-sm font-mono">
+              <p className="text-slate-500 text-xs uppercase tracking-wider">一般的な誤解</p>
               <div className="space-y-2.5">
-                <div className="flex items-center gap-3 text-slate-600">
+                <div className="flex items-center gap-3 text-slate-500">
                   <span className="w-2 h-2 rounded-full bg-red-500/50 flex-shrink-0" />
                   <span>依頼者の言葉</span>
                   <span>→</span>
                   <span className="line-through decoration-red-500/60">要件定義書</span>
                 </div>
-                <div className="flex items-center gap-3 text-slate-600">
+                <div className="flex items-center gap-3 text-slate-500">
                   <span className="w-2 h-2 rounded-full bg-red-500/50 flex-shrink-0" />
                   <span>現場担当者の話</span>
                   <span>→</span>
@@ -106,7 +113,7 @@ export default function Process() {
                 </div>
               </div>
               <div className="border-t border-[#1a4060] pt-4 space-y-2.5">
-                <p className="text-slate-600 text-xs uppercase tracking-wider">実際のアプローチ</p>
+                <p className="text-slate-500 text-xs uppercase tracking-wider">実際のアプローチ</p>
                 <div className="flex items-start gap-3 text-cyan-400">
                   <span className="w-2 h-2 rounded-full bg-cyan-500 flex-shrink-0 mt-1.5" />
                   <span>自ら現場を体験・観察・調査</span>
@@ -118,7 +125,7 @@ export default function Process() {
               </div>
             </div>
             {/* テキスト */}
-            <div className="space-y-4">
+            <div className="space-y-4 self-center">
               <p className="text-slate-300 text-sm leading-relaxed">
                 依頼者は要件を知りません。現場担当者も全体を把握していません。「正しく聞き取る」という前提が、そもそも現実に即していません。
               </p>
@@ -135,10 +142,10 @@ export default function Process() {
         {/* ========== PHASE 02 ========== */}
         <div>
           <PhaseHeader num="02" title='AI を「役割分担」させてプロトタイプを最速で作る' color="emerald" />
-          <div className="grid md:grid-cols-2 gap-6 items-start mb-6">
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
             {/* 図: トークン配分 */}
-            <div className="rounded-xl border border-[#1a4060] bg-[#050f1c] p-6 space-y-3 text-xs">
-              <p className="text-slate-600 font-mono uppercase tracking-wider mb-1">Token Efficiency — コンテキスト配分</p>
+            <div className="rounded-xl border border-[#1a4060] bg-[#050f1c] p-6 h-full flex flex-col justify-center space-y-3 text-xs">
+              <p className="text-slate-500 font-mono uppercase tracking-wider mb-1">Token Efficiency — コンテキスト配分</p>
               {[
                 { label: 'Claude Code', pct: 35, color: 'bg-cyan-500' },
                 { label: 'Gemini',      pct: 30, color: 'bg-blue-500' },
@@ -150,18 +157,18 @@ export default function Process() {
                   <div className="flex-1 h-2 bg-[#0a1f30] rounded-full overflow-hidden">
                     <div className={`h-full rounded-full ${b.color} opacity-70`} style={{ width: `${b.pct}%` }} />
                   </div>
-                  <span className="text-slate-600 w-7 text-right font-mono">{b.pct}%</span>
+                  <span className="text-slate-500 w-7 text-right font-mono">{b.pct}%</span>
                 </div>
               ))}
-              <p className="text-slate-700 text-[10px] pt-1">各 AI の得意領域で分担し、Claude のコンテキストを節約</p>
+              <p className="text-slate-500 text-[10px] pt-1">各 AI の得意領域で分担し、Claude のコンテキストを節約</p>
             </div>
             {/* テキスト */}
-            <div className="space-y-4">
+            <div className="space-y-4 self-center">
               <p className="text-slate-300 text-sm leading-relaxed">
                 遷移図や画面モックでは依頼者の意見が出ません。実務に近いデータを使った<span className="text-emerald-300 font-semibold">動作するプロトタイプを触ってもらって初めて「スイッチが入り」</span>、本当の要件定義が始まります。
               </p>
               <p className="text-slate-300 text-sm leading-relaxed">
-                AI を1つだけ使うのではなく、それぞれの得意領域で役割分担させることで、コンテキストを分散させてトークン消費を最適化しながら、プロトタイプの完成速度を大幅に上げています。
+                AI を1つだけ使うのではなく、それぞれの得意領域で役割分担させることでトークン消費を最適化。さらに Claude Code ではサブエージェントへの並列委譲や Agent Teams による複数インスタンスのチーム開発を活用し、独立したタスクを同時に進めてプロトタイプの完成速度を大幅に上げています。
               </p>
               <div className="border-l-2 border-emerald-900 pl-4">
                 <p className="text-emerald-300/60 text-xs leading-relaxed">AI が速くなるほど、間違ったものを速く完成させるリスクも増します。正しい「スイッチの入れ方」がより重要になります。</p>
@@ -198,30 +205,32 @@ export default function Process() {
 
         {/* ========== PHASE 03 ========== */}
         <div>
-          <PhaseHeader num="03" title="設定・エージェント・フックで品質を構造化する" color="cyan" />
-          <div className="grid md:grid-cols-2 gap-6 items-start">
-            {/* 図: 3層スタック */}
-            <div className="rounded-xl border border-[#1a4060] bg-[#050f1c] p-6 text-sm font-mono space-y-1">
-              <p className="text-slate-600 text-xs uppercase tracking-wider mb-4">claude-universal-config の構造</p>
+          <PhaseHeader num="03" title="設定・エージェント・スキル・フックで品質を構造化する" color="cyan" />
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* 図: 4層スタック */}
+            <div className="rounded-xl border border-[#1a4060] bg-[#050f1c] p-6 h-full flex flex-col justify-center text-sm font-mono">
+              <p className="text-slate-500 text-xs uppercase tracking-wider mb-4">claude-universal-config の構造</p>
               {[
-                { label: 'Hooks',    sub: '安全装置',  color: 'border-amber-700/60   bg-amber-900/20   text-amber-300'   },
-                { label: 'Agents',   sub: '専門の役割', color: 'border-emerald-700/60 bg-emerald-900/20 text-emerald-300' },
-                { label: 'Settings', sub: '行動規範',  color: 'border-cyan-700/60    bg-cyan-900/20    text-cyan-300'    },
-              ].map((row, i) => (
+                { label: 'Hooks',    sub: '安全装置',    color: 'border-amber-700/60   bg-amber-900/20   text-amber-300'   },
+                { label: 'Agents',   sub: '専門の役割',  color: 'border-emerald-700/60 bg-emerald-900/20 text-emerald-300' },
+                { label: 'Skills',   sub: '手順書',      color: 'border-violet-700/60  bg-violet-900/20  text-violet-300'  },
+                { label: 'Settings', sub: '行動規範',    color: 'border-cyan-700/60    bg-cyan-900/20    text-cyan-300'    },
+              ].map((row, i, arr) => (
                 <div key={row.label}>
                   <div className={`rounded-lg border px-4 py-3 flex items-center justify-between ${row.color}`}>
                     <span className="font-bold">{row.label}</span>
                     <span className="text-xs opacity-70">{row.sub}</span>
                   </div>
-                  {i < 2 && (
+                  {i < arr.length - 1 && (
                     <div className="flex justify-center">
                       <div className="w-px h-3 bg-[#1a4060]" />
                     </div>
                   )}
                 </div>
               ))}
+              <p className="text-slate-500 text-[10px] mt-4">MCP で外部ツールを接続し、この4層が品質を担保する</p>
             </div>
-            {/* 3つのカード */}
+            {/* 4つのカード */}
             <div className="space-y-3">
               {infraItems.map(item => {
                 const c = colorCls[item.color]
@@ -229,7 +238,7 @@ export default function Process() {
                   <div key={item.label} className="card p-4">
                     <div className="flex flex-wrap items-baseline gap-1.5 mb-1.5">
                       <span className="text-white font-semibold text-sm">{item.label}</span>
-                      <span className="text-slate-600 text-xs">=</span>
+                      <span className="text-slate-500 text-xs">=</span>
                       <span className={`text-xs font-medium ${c.accent}`}>{item.what}</span>
                     </div>
                     <p className="text-slate-400 text-xs leading-relaxed mb-2">{item.desc}</p>
@@ -248,10 +257,10 @@ export default function Process() {
         {/* ========== PHASE 04 ========== */}
         <div>
           <PhaseHeader num="04" title="現場フィードバック → 自律改善ループ" color="emerald" />
-          <div className="grid md:grid-cols-2 gap-6 items-start">
+          <div className="grid md:grid-cols-2 gap-6">
             {/* 図: ループフロー */}
-            <div className="rounded-xl border border-[#1a4060] bg-[#050f1c] p-6 text-xs font-mono">
-              <p className="text-slate-600 uppercase tracking-wider mb-4">autoresearch loop</p>
+            <div className="rounded-xl border border-[#1a4060] bg-[#050f1c] p-6 h-full flex flex-col justify-center text-xs font-mono">
+              <p className="text-slate-500 uppercase tracking-wider mb-4">autoresearch loop</p>
               <div className="space-y-0">
                 {[
                   { label: '目標・検証方法を定義', who: '人間', color: 'text-cyan-400',    bg: 'bg-cyan-900/40 border-cyan-700' },
@@ -269,7 +278,7 @@ export default function Process() {
                     </div>
                     <div className="pb-3">
                       <span className={row.color}>{row.label}</span>
-                      <span className="text-slate-700 ml-2">({row.who})</span>
+                      <span className="text-slate-500 ml-2">({row.who})</span>
                     </div>
                   </div>
                 ))}
@@ -279,7 +288,7 @@ export default function Process() {
               </div>
             </div>
             {/* テキスト */}
-            <div className="space-y-4">
+            <div className="space-y-4 self-center">
               <p className="text-slate-300 text-sm leading-relaxed">
                 実際に店舗スタッフが触ったプロトタイプから「スイッチが入り」、本当の要件が浮かび上がります。そのフィードバックをもとに <code className="text-emerald-400 bg-[#071828] px-1.5 py-0.5 rounded text-xs">/autoresearch</code> ループが「修正 → 検証 → 採用 / 棄却」を自律的に繰り返します。
               </p>
@@ -288,6 +297,54 @@ export default function Process() {
               </p>
               <div className="border-l-2 border-emerald-900 pl-4">
                 <p className="text-emerald-300/60 text-xs leading-relaxed">実績: 品質チェック通過率 66.7% → 100%（5ラウンド自動実行）</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ========== PHASE 05 ========== */}
+        <div>
+          <PhaseHeader num="05" title="自宅を実験場に — ホームラボ × AI 遠隔操作（構築中）" color="amber" />
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* 図: 遠隔操作フロー */}
+            <div className="rounded-xl border border-[#1a4060] bg-[#050f1c] p-6 h-full flex flex-col justify-center text-xs font-mono">
+              <p className="text-slate-500 uppercase tracking-wider mb-4">AI Remote Home — 外出先からの操作フロー</p>
+              <div className="space-y-0">
+                {[
+                  { label: 'スマホから自然言語で指示', sub: '外出先',         color: 'text-cyan-400',   bg: 'bg-cyan-900/40 border-cyan-700' },
+                  { label: 'AI エージェント（Claude）', sub: '意図を解釈',     color: 'text-amber-300',  bg: 'bg-amber-900/20 border-amber-700' },
+                  { label: 'MCP サーバー',              sub: 'VPN・権限制御',  color: 'text-amber-300',  bg: 'bg-amber-900/20 border-amber-700' },
+                  { label: 'Home Assistant',            sub: '自宅サーバー',   color: 'text-emerald-400', bg: 'bg-emerald-900/30 border-emerald-800' },
+                  { label: 'Matter 家電・NAS・センサー', sub: '実行',          color: 'text-emerald-400', bg: 'bg-emerald-900/30 border-emerald-800' },
+                ].map((row, i, arr) => (
+                  <div key={row.label} className="flex items-stretch gap-3">
+                    <div className="flex flex-col items-center">
+                      <div className={`w-6 h-6 rounded-full border flex items-center justify-center flex-shrink-0 ${row.bg}`}>
+                        <span className={`text-[10px] font-bold ${row.color}`}>{i + 1}</span>
+                      </div>
+                      {i < arr.length - 1 && <div className="w-px flex-1 bg-[#1a4060] my-1" />}
+                    </div>
+                    <div className="pb-3">
+                      <span className={row.color}>{row.label}</span>
+                      <span className="text-slate-500 ml-2">({row.sub})</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-2 border-t border-[#1a4060] pt-3 text-center text-amber-400/50">
+                「エアコンつけておいて」だけで家が動く
+              </div>
+            </div>
+            {/* テキスト */}
+            <div className="space-y-4 self-center">
+              <p className="text-slate-300 text-sm leading-relaxed">
+                開発プロセスの実験場として、自宅に NAS・Web サーバーを構築中。Matter 対応スマートデバイスと Home Assistant を組み合わせ、メーカーの垣根を越えて家中の機器を一元管理する基盤を整備しています。
+              </p>
+              <p className="text-slate-300 text-sm leading-relaxed">
+                その上で取り組んでいるのが、<span className="text-amber-300 font-semibold">外出先から AI を介して自宅の機器を操作する仕組み</span>です。スマホから AI エージェントに自然言語で伝えるだけで、MCP 経由で Home Assistant に安全に接続し、照明・エアコンの操作から NAS 上のデータ確認までを実行できる構成を設計・構築しています。
+              </p>
+              <div className="border-l-2 border-amber-900 pl-4">
+                <p className="text-amber-300/60 text-xs leading-relaxed">VPN と権限制御で AI に渡す操作範囲を最小限に絞るのが設計の要。介護の見守り（父親食事管理システム）との連携も視野に入れています。</p>
               </div>
             </div>
           </div>
@@ -302,7 +359,7 @@ export default function Process() {
         </p>
         <p className="text-slate-300 text-sm leading-relaxed max-w-2xl">
           AI はコーディング・テスト・ドキュメント整理といった定型作業を効率化します。しかしその分、間違った要件に基づいて間違ったものを速く完成させるリスクも同時に増します。
-          設定・エージェント・フックによる品質の構造化と、複数 AI の役割分担によるトークン最適化は、その速度を安全に使いこなすための基盤です。
+          設定・エージェント・スキル・フックによる品質の構造化と、複数 AI・サブエージェントの役割分担によるコンテキスト最適化は、その速度を安全に使いこなすための基盤です。
           <span className="text-cyan-300 font-semibold"> AI が進化しても、要件を「開発する」判断は人間が担い続けます。</span>
         </p>
       </div>

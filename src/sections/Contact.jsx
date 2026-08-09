@@ -48,7 +48,7 @@ export default function Contact() {
       </div>
 
       <p className="text-center text-slate-500 text-sm mt-16">
-        © 2025 Hayashi Hiroshi. Built with React + Three.js
+        © {new Date().getFullYear()} Hayashi Hiroshi — Built with React &amp; Three.js
       </p>
     </section>
   )
