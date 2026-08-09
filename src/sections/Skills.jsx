@@ -10,13 +10,13 @@ const categories = [
 function SkillBar({ name, level, note }) {
   return (
     <div className="flex items-center gap-4">
-      <div className="w-40 flex-shrink-0">
+      <div className="w-40 md:w-56 flex-shrink-0 leading-snug">
         <span className="text-slate-200 text-sm">{name}</span>
         {note && (
-          <span className="ml-2 text-xs text-slate-500 bg-slate-800 px-1.5 py-0.5 rounded">{note}</span>
+          <span className="ml-2 inline-block whitespace-nowrap align-middle text-[10px] text-slate-500 bg-slate-800 px-1.5 py-0.5 rounded">{note}</span>
         )}
       </div>
-      {/* 右に伸びるほど習熟度が高い */}
+      {/* 右に伸びるほど習熟度が高い（スケールはカード上部の 低/高 表記） */}
       <div className="flex-1 h-2.5 rounded-full bg-slate-700/60 overflow-hidden">
         <div
           className="h-full rounded-full bg-cyan-500"
@@ -32,7 +32,7 @@ export default function Skills() {
     <section id="skills" className="section">
       <p className="text-cyan-400 text-xs font-mono tracking-widest uppercase mb-2">Skills</p>
       <h2 className="section-title">スキル</h2>
-      <p className="section-sub">バーが右に伸びるほど習熟度が高い</p>
+      <p className="section-sub">分野ごとの習熟度を可視化</p>
 
       <div className="grid sm:grid-cols-2 gap-6">
         {categories.map(({ key, label }) => (
@@ -40,6 +40,14 @@ export default function Skills() {
             <h3 className="text-white font-semibold mb-5 text-sm uppercase tracking-wider border-b border-slate-700 pb-3">
               {label}
             </h3>
+            {/* スケール表記 */}
+            <div className="flex items-center gap-4 mb-3">
+              <div className="w-40 md:w-56 flex-shrink-0" />
+              <div className="flex-1 flex items-center justify-between text-[10px] text-slate-500 font-mono tracking-wider">
+                <span>低</span>
+                <span>高</span>
+              </div>
+            </div>
             <div className="space-y-4">
               {skills[key].map((s) => (
                 <SkillBar key={s.name} {...s} />

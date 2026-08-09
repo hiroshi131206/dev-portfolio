@@ -57,8 +57,11 @@ body {
   margin-bottom: 3rem;
 }
 
-/* セクション区切り線 */
-.section + .section {
+/* セクション区切り線
+   （各セクションは Reveal ラッパー div に包まれているため、
+     ラッパー同士の隣接で判定する。直接隣接する場合もカバー） */
+.section + .section,
+main > div + div > .section {
   border-top: 1px solid rgba(14, 116, 144, 0.2);
 }
 
@@ -84,3 +87,71 @@ body {
 }
 
 /* カーソル波紋は CursorRipple.jsx の Canvas で描画 */
+
+/* ==========================================================
+   アンビエント背景（AmbientBackground.jsx）
+   余白に漂う気泡とぼかし光。コンテンツの背面・低不透明度。
+   ========================================================== */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.07;
+}
+.ambient-orb-a {
+  width: 480px;
+  height: 480px;
+  background: #0891b2;
+  top: 12%;
+  left: -8%;
+  animation: ambient-drift-a 46s ease-in-out infinite alternate;
+}
+.ambient-orb-b {
+  width: 420px;
+  height: 420px;
+  background: #2563eb;
+  bottom: 8%;
+  right: -6%;
+  animation: ambient-drift-b 58s ease-in-out infinite alternate;
+}
+
+@keyframes ambient-drift-a {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(120px, 80px) scale(1.15); }
+}
+@keyframes ambient-drift-b {
+  from { transform: translate(0, 0) scale(1.1); }
+  to   { transform: translate(-140px, -90px) scale(1); }
+}
+
+.ambient-bubble {
+  position: absolute;
+  bottom: -12px;
+  border-radius: 9999px;
+  background: #22d3ee;
+  animation-name: ambient-rise;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes ambient-rise {
+  0%   { transform: translate(0, 0); }
+  50%  { transform: translate(var(--drift, 0px), -55vh); }
+  100% { transform: translate(0, -110vh); }
+}
+
+/* 動きを抑える設定のユーザーにはアニメーションを止める */
+@media (prefers-reduced-motion: reduce) {
+  .ambient-orb,
+  .ambient-bubble {
+    animation: none;
+  }
+}

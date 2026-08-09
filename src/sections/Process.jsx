@@ -357,10 +357,12 @@ export default function Process() {
         <p className="text-cyan-200 text-base font-semibold mb-3">
           AI が速くなるほど、「何を作るか」の判断が問われる
         </p>
-        <p className="text-slate-300 text-sm leading-relaxed max-w-2xl">
+        <p className="text-slate-300 text-sm leading-relaxed max-w-3xl text-pretty">
           AI はコーディング・テスト・ドキュメント整理といった定型作業を効率化します。しかしその分、間違った要件に基づいて間違ったものを速く完成させるリスクも同時に増します。
           設定・エージェント・スキル・フックによる品質の構造化と、複数 AI・サブエージェントの役割分担によるコンテキスト最適化は、その速度を安全に使いこなすための基盤です。
-          <span className="text-cyan-300 font-semibold"> AI が進化しても、要件を「開発する」判断は人間が担い続けます。</span>
+        </p>
+        <p className="text-cyan-300 font-semibold text-sm leading-relaxed mt-3 text-pretty">
+          AI が進化しても、要件を「開発する」判断は人間が担い続けます。
         </p>
       </div>
     </section>
