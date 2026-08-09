@@ -1,19 +1,20 @@
 import { profile } from '../data/profile'
 
 const works = [
-  { category: 'CM',     title: '東芝 ZABOON',     role: 'ナレーション' },
-  { category: 'CM',     title: '日本特殊陶業',     role: 'ナレーション' },
-  { category: 'VP',     title: 'トヨタ自動車',     role: 'ナレーション' },
-  { category: 'VP',     title: '名古屋大学',        role: 'ナレーション' },
-  { category: 'アニメ', title: '薬屋のひとりごと', role: '宦官役' },
-  { category: 'ゲーム', title: '原神',              role: 'NPC役' },
+  { category: 'CM',       title: '東芝',             role: 'ナレーション' },
+  { category: 'ラジオCM', title: '日本特殊陶業',     role: 'ナレーション' },
+  { category: 'VP',       title: 'トヨタ自動車',     role: 'ナレーション' },
+  { category: 'VP',       title: '名古屋大学',        role: 'ナレーション' },
+  { category: 'アニメ',   title: '薬屋のひとりごと', role: '宦官役' },
+  { category: 'ゲーム',   title: '原神',              role: 'NPC役' },
 ]
 
 const categoryColors = {
-  'CM':     'text-amber-300 bg-amber-900/40 border-amber-700',
-  'VP':     'text-emerald-300 bg-emerald-900/40 border-emerald-700',
-  'アニメ': 'text-pink-300 bg-pink-900/40 border-pink-700',
-  'ゲーム': 'text-cyan-300 bg-cyan-900/40 border-cyan-700',
+  'CM':       'text-amber-300 bg-amber-900/40 border-amber-700',
+  'ラジオCM': 'text-amber-300 bg-amber-900/40 border-amber-700',
+  'VP':       'text-emerald-300 bg-emerald-900/40 border-emerald-700',
+  'アニメ':   'text-pink-300 bg-pink-900/40 border-pink-700',
+  'ゲーム':   'text-cyan-300 bg-cyan-900/40 border-cyan-700',
 }
 
 export default function Voice() {
