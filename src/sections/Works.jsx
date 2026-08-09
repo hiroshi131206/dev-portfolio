@@ -5,6 +5,7 @@ const badgeStyles = {
   green:  'bg-emerald-900/50 text-emerald-300 border border-emerald-700',
   blue:   'bg-blue-900/50 text-blue-300 border border-blue-700',
   purple: 'bg-cyan-900/50 text-cyan-300 border border-cyan-700',
+  amber:  'bg-amber-900/50 text-amber-300 border border-amber-700',
 }
 
 // ============================================================
