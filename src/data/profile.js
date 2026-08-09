@@ -111,7 +111,14 @@ export const works = [
       '共有コードで仲間の声を取り込み可能',
     ],
     tags: ['AI', '音声合成', 'React', 'TypeScript', '声優'],
-    media: null,
+    media: [
+      {
+        type: 'pdf',
+        url: '/docs/script-analyzer.pdf',
+        label: '紹介資料',
+        icon: 'pdf',
+      },
+    ],
   },
   {
     id: 'family-schedule',
