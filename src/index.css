@@ -8,6 +8,15 @@
 
 html {
   scroll-behavior: smooth;
+  /* 固定ナビ（h-16）の下にアンカー先が隠れないようにする */
+  scroll-padding-top: 4.5rem;
+}
+
+/* キーボード操作時のフォーカスリング */
+:focus-visible {
+  outline: 2px solid #06b6d4;
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 body {

@@ -52,12 +52,12 @@ function MediaPanel({ work }) {
     return (
       <div>
         {/* タブ */}
-        <div className="flex border border-[#1a4060] rounded-t-xl overflow-hidden">
+        <div className="flex border border-[#1a4060] rounded-t-xl overflow-x-auto overflow-y-hidden">
           {media.map((m, i) => (
             <button
               key={i}
               onClick={() => setActiveTab(i)}
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium transition-colors ${
+              className={`flex-1 min-w-fit whitespace-nowrap lg:min-w-0 lg:whitespace-normal flex items-center justify-center gap-2 py-2.5 px-3 text-sm font-medium transition-colors ${
                 activeTab === i
                   ? 'bg-cyan-900/40 text-cyan-300 border-b-2 border-cyan-500'
                   : 'bg-[#050f1c] text-slate-500 hover:text-slate-300'
@@ -123,8 +123,8 @@ function MediaPanel({ work }) {
             GitHub でコードを見る
           </a>
         )}
-        <p className="text-slate-700 text-xs flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-slate-700 inline-block" />
+        <p className="text-slate-500 text-xs flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-slate-500 inline-block" />
           動画・資料は順次追加予定
         </p>
       </div>
@@ -202,7 +202,7 @@ export default function Works() {
               </div>
 
               {/* ===== 右: プレビュー ===== */}
-              <div className="lg:sticky lg:top-24">
+              <div className="lg:sticky lg:top-24 min-w-0">
                 <MediaPanel work={work} />
               </div>
             </div>

@@ -47,7 +47,7 @@ export default function Contact() {
         ))}
       </div>
 
-      <p className="text-center text-slate-600 text-sm mt-16">
+      <p className="text-center text-slate-500 text-sm mt-16">
         © 2025 Hayashi Hiroshi. Built with React + Three.js
       </p>
     </section>

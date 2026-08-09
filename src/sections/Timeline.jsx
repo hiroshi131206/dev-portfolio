@@ -8,13 +8,14 @@ export default function Timeline() {
       <p className="section-sub">学習・活動の歩み</p>
 
       <div className="relative max-w-2xl mx-auto">
-        <div className="absolute left-20 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/70 via-cyan-600/30 to-transparent" />
+        {/* 縦線: 年カラム w-16(64px) + gap-6(24px) + ドット半径(7px) = ドット中心 95px */}
+        <div className="absolute left-[95px] top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/70 via-cyan-600/30 to-transparent" />
 
         <div className="space-y-7">
           {timeline.map((item, i) => (
             <div key={i} className="flex gap-6 items-start group">
               <div className="w-16 text-right flex-shrink-0 pt-0.5">
-                <span className={`text-sm font-mono font-medium ${item.future ? 'text-slate-600' : 'text-cyan-400'}`}>
+                <span className={`text-sm font-mono font-medium ${item.future ? 'text-slate-500' : 'text-cyan-400'}`}>
                   {item.year}
                 </span>
               </div>
@@ -26,9 +27,9 @@ export default function Timeline() {
               }`} />
 
               <div className={`pb-1 leading-relaxed ${
-                item.future ? 'text-slate-600 italic text-sm' : 'text-slate-200 text-sm'
+                item.future ? 'text-slate-500 italic text-sm' : 'text-slate-200 text-sm'
               }`}>
-                {item.future && <span className="text-slate-600 mr-1">（予定）</span>}
+                {item.future && <span className="text-slate-500 mr-1">（予定）</span>}
                 {item.event}
               </div>
             </div>

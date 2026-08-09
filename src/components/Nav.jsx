@@ -14,11 +14,29 @@ const links = [
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [active, setActive] = useState('')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // 現在表示中のセクションをハイライト
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(`#${e.target.id}`)
+        })
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    )
+    links.forEach((l) => {
+      const el = document.querySelector(l.href)
+      if (el) observer.observe(el)
+    })
+    return () => observer.disconnect()
   }, [])
 
   return (
@@ -36,7 +54,11 @@ export default function Nav() {
             <li key={l.href}>
               <a
                 href={l.href}
-                className="text-sm text-slate-400 hover:text-white transition-colors"
+                className={`text-sm transition-colors ${
+                  active === l.href
+                    ? 'text-cyan-400'
+                    : 'text-slate-400 hover:text-white'
+                }`}
               >
                 {l.label}
               </a>
@@ -66,7 +88,9 @@ export default function Nav() {
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="text-slate-300 hover:text-white text-sm"
+                  className={`text-sm ${
+                    active === l.href ? 'text-cyan-400' : 'text-slate-300 hover:text-white'
+                  }`}
                   onClick={() => setOpen(false)}
                 >
                   {l.label}
