@@ -61,7 +61,14 @@ export const works = [
       'Q&A サポート（マスコットキャラクター「コウ君」）',
     ],
     tags: ['HTML', 'CSS', 'JavaScript', 'Python', 'Flask', 'MySQL', 'チーム開発'],
-    media: null,
+    media: [
+      {
+        type: 'pdf',
+        url: '/docs/futurum-liberorum.pdf',
+        label: '紹介資料',
+        icon: 'pdf',
+      },
+    ],
   },
   {
     id: 'japan-travel-key',
