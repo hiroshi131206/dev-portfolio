@@ -8,14 +8,16 @@ const badgeStyles = {
   amber:  'bg-amber-900/50 text-amber-300 border border-amber-700',
 }
 
+// ローカル配置ファイルは GitHub Pages のベースパスを付けて解決する
+const resolveUrl = (url) =>
+  url.startsWith('http') ? url : `${import.meta.env.BASE_URL}${url.replace(/^\//, '')}`
+
 // ============================================================
 // 1件分のメディアビューア（iframe / 画像）
 // ============================================================
 function MediaEmbed({ item, title }) {
   if (item.type === 'image') {
-    const src = item.url.startsWith('http')
-      ? item.url
-      : `${import.meta.env.BASE_URL}${item.url.replace(/^\//, '')}`
+    const src = resolveUrl(item.url)
     return (
       <div className="w-full h-[420px] rounded-b-xl overflow-hidden bg-[#050f1c] border-x border-b border-[#1a4060] flex items-center justify-center">
         <img
@@ -29,7 +31,7 @@ function MediaEmbed({ item, title }) {
   return (
     <div className="w-full h-[420px] rounded-b-xl overflow-hidden bg-[#050f1c] border-x border-b border-[#1a4060]">
       <iframe
-        src={item.url}
+        src={resolveUrl(item.url)}
         title={item.label ?? title}
         className="w-full h-full"
         allow="autoplay"
@@ -88,7 +90,7 @@ function MediaPanel({ work }) {
         {/* 外部リンク（ドライブのみ） */}
         {current.type !== 'image' && (
           <a
-            href={current.url.replace('/preview', '/view')}
+            href={resolveUrl(current.url).replace('/preview', '/view')}
             target="_blank"
             rel="noopener noreferrer"
             className="block text-center text-cyan-500 hover:text-cyan-300 text-xs mt-2 transition-colors"

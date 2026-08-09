@@ -173,32 +173,27 @@ export default function Hero() {
 
       <div className="relative z-10 text-center px-6">
         {/* ラベル */}
-        <p className="text-cyan-400 text-xs font-mono tracking-widest uppercase mb-8">
+        <p className="text-cyan-400 text-xs font-mono tracking-widest uppercase mb-10">
           Portfolio
         </p>
 
         {/* 名前 */}
-        <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-none mb-3">
+        <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-none mb-5">
           {profile.nameEn}
         </h1>
-        <p className="text-2xl md:text-3xl text-slate-300 font-light mb-6">
+        <p className="text-2xl md:text-3xl text-slate-300 font-light mb-10">
           {profile.name}
         </p>
 
         {/* 所属 — 1行にまとめる */}
-        <p className="text-slate-400 text-sm mb-14 tracking-wide">
+        <p className="text-slate-400 text-sm mb-16 tracking-wide">
           {profile.school}
           <span className="mx-3 text-slate-700">|</span>
           {profile.graduationYear}
         </p>
 
-        {/* キャッチコピー */}
-        <p className="text-slate-200 text-lg md:text-xl max-w-lg mx-auto mb-14 leading-relaxed">
-          {profile.tagline}
-        </p>
-
         {/* CTA ボタン */}
-        <div className="flex gap-4 justify-center flex-wrap mb-8">
+        <div className="flex gap-4 justify-center flex-wrap mb-10">
           <a href="#works" className="px-7 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg font-medium transition-colors">
             制作物を見る
           </a>

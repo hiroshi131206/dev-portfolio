@@ -1,10 +1,8 @@
 @import "tailwindcss";
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* 注意: レイヤー外の `* { margin:0; padding:0 }` は Tailwind の
+   margin/padding ユーティリティを全て打ち消すため書かないこと。
+   リセットは Tailwind v4 の preflight が担う。 */
 
 html {
   scroll-behavior: smooth;

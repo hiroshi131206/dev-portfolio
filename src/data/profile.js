@@ -79,7 +79,14 @@ export const works = [
       '安全管理機能（災害情報・避難所案内）',
     ],
     tags: ['企画・設計', 'PWA', 'ネイティブアプリ', 'GPS', '電子決済', '防災'],
-    media: null,
+    media: [
+      {
+        type: 'pdf',
+        url: '/docs/japan-travel-key.pdf',
+        label: '企画資料',
+        icon: 'pdf',
+      },
+    ],
   },
   {
     id: 'script-analyzer',

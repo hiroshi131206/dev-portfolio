@@ -45,9 +45,7 @@ export default function Nav() {
         scrolled ? 'bg-[#040e1a]/95 backdrop-blur border-b border-cyan-900/40' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <span className="text-white font-bold tracking-tight">HH.</span>
-
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-center">
         {/* Desktop */}
         <ul className="hidden md:flex gap-6">
           {links.map((l) => (
@@ -68,7 +66,7 @@ export default function Nav() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden text-slate-400 hover:text-white"
+          className="md:hidden ml-auto text-slate-400 hover:text-white"
           onClick={() => setOpen(!open)}
           aria-label="menu"
         >
