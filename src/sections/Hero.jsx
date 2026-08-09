@@ -160,7 +160,9 @@ function DeepField() {
 export default function Hero() {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0">
+      {/* Canvas は下端をマスクでフェードアウトさせ、次セクションとの境目を消す
+          （不透明な上塗りグラデーションだと背面のアンビエント演出が隠れて段差になる） */}
+      <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_70%,transparent_100%)]">
         <Canvas camera={{ position: [0, 1, 12], fov: 60 }}>
           <DeepField />
           <CausticGrid />
@@ -169,7 +171,7 @@ export default function Hero() {
         </Canvas>
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-[#040e1a]/30 via-transparent to-[#040e1a]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#040e1a]/30 to-transparent" />
 
       <div className="relative z-10 text-center px-6">
         {/* ラベル */}
